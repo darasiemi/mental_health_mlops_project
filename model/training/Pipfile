@@ -8,6 +8,7 @@ kaggle = "*"
 textblob = "*"
 xgboost = "*"
 wordcloud = "*"
+mlflow = "*"
 
 [dev-packages]
 

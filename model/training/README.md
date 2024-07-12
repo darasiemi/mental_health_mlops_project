@@ -4,7 +4,7 @@ pip install pipenv
 ```
 To install packages
 ```bash
-pipenv install kaggle textblob xgboost wordcloud --python==3.11
+pipenv install kaggle xgboost mlflow boto3 --python==3.11
 ```
 To launch pipenv shell
 ```bash
@@ -19,6 +19,8 @@ Generate API key from Kaggle and copy to remote machine
 scp ~/Downloads/kaggle.json ubuntu@51.20.254.178:~/mental_health_mlops_project
 ```
 
-To setup s3, follow instructions in [x]
-then
+ ls /home/ubuntu/anaconda3/bin/python3.11
+
+
+
 

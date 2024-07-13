@@ -16,7 +16,7 @@ pipenv run jupyter notebook
 ```
 Generate API key from Kaggle and copy to remote machine
 ```bash
-scp ~/Downloads/kaggle.json ubuntu@51.20.254.178:~/mental_health_mlops_project
+scp ~/Downloads/kaggle.json ubuntu@16.16.187.168:~/mental_health_mlops_project
 ```
 
  ls /home/ubuntu/anaconda3/bin/python3.11

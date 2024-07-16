@@ -1,0 +1,64 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: mental_health_pipeline/global_data_products/sklearn_set.py
+    file_source:
+      path: mental_health_pipeline/global_data_products/sklearn_set.py
+    global_data_product:
+      uuid: sklearn_model
+  downstream_blocks:
+  - random_forest
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: sklearn_set
+  retry_config: null
+  status: executed
+  timeout: null
+  type: global_data_product
+  upstream_blocks: []
+  uuid: sklearn_set
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: mental_health_pipeline/custom/random_forest.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: random_forest
+  retry_config: null
+  status: failed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - sklearn_set
+  uuid: random_forest
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-07-15 12:09:04.472654+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: predict
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: predict
+variables_dir: /home/src/mage_data/mental_health_pipeline
+widgets: []

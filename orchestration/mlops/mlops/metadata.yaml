@@ -1,0 +1,21 @@
+project_type: standalone
+variables_dir: ~/.mage_data
+variables_retention_period: "90d"
+features:
+  add_new_block_v2: true
+  command_center: true
+  compute_management: false
+  custom_design: true
+  data_integration_in_batch_pipeline: true
+  dbt_v2: true
+  global_hooks: true
+  interactions: true
+  display_local_timezone: true
+  notebook_block_output_split_view: true
+  operation_history: true
+  polars: true
+help_improve_mage: true
+project_uuid: 352645cbf19442a18a47894b1ff3b569
+# https://docs.mage.ai/integrations/observability/alerting-email
+# https://support.google.com/mail/answer/185833?hl=en
+

@@ -49,6 +49,7 @@ def predict(
     vect = 0
     print(vect)
     df = pd.read_csv("/home/src/mlops/data/dreaddit-test.csv")
+    print("loaded data successfully")
     print(df)
     test = df[0]
     # DOLocationID = kwargs.get('DOLocationID')

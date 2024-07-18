@@ -1,26 +1,5 @@
 blocks:
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_path: mental_health_pipeline/global_data_products/sklearn_set.py
-    file_source:
-      path: mental_health_pipeline/global_data_products/sklearn_set.py
-    global_data_product:
-      uuid: sklearn_model
-  downstream_blocks:
-  - random_forest
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: sklearn_set
-  retry_config: null
-  status: executed
-  timeout: null
-  type: global_data_product
-  upstream_blocks: []
-  uuid: sklearn_set
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     file_source:
@@ -32,12 +11,32 @@ blocks:
   language: python
   name: random_forest
   retry_config: null
-  status: failed
+  status: updated
   timeout: null
   type: custom
   upstream_blocks:
-  - sklearn_set
+  - model_set
   uuid: random_forest
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: mental_health_pipeline/global_data_products/model_set.py
+    global_data_product:
+      uuid: random_forest
+  downstream_blocks:
+  - random_forest
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: model_set
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: global_data_product
+  upstream_blocks: []
+  uuid: model_set
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

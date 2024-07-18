@@ -36,4 +36,5 @@ def train(
     model.fit(X, y)
     vectorizer = training_set['build'][4]
 
-    return model, model_info, vectorizer
+    # return model, model_info, vectorizer
+    return model, vectorizer

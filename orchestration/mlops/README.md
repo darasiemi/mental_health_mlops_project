@@ -19,3 +19,8 @@
    ```
 
 1. Open [`http://localhost:6789`](http://localhost:6789) in your browser.
+
+To clear git cache
+```bash
+git rm -r --cached .
+```

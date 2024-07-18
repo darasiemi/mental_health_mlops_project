@@ -14,8 +14,11 @@ def models(*args, **kwargs) -> Tuple[List[str], List[Dict[str, str]]]:
         ensemble.RandomForestClassifier
         tree.DecisionTreeClassifier
     """
+    # model_names: str = kwargs.get(
+    #     'models', 'ensemble.RandomForestClassifier,tree.DecisionTreeClassifier'
+    # )
     model_names: str = kwargs.get(
-        'models', 'ensemble.RandomForestClassifier,tree.DecisionTreeClassifier'
+        'models', 'ensemble.RandomForestClassifier'
     )
     child_data: List[str] = [
         model_name.strip() for model_name in model_names.split(',')

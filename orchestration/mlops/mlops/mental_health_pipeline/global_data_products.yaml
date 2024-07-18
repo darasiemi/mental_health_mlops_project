@@ -1,3 +1,12 @@
+random_forest:
+  object_type: pipeline
+  object_uuid: sklearn_training
+  outdated_after:
+    seconds: 572
+  project: mental_health_pipeline
+  repo_path: /home/src/mlops/mental_health_pipeline
+  settings:
+    sklearn_model: {}
 sklearn_model:
   object_type: pipeline
   object_uuid: sklearn_training

@@ -33,5 +33,7 @@ orchestration/mlops/terraform/*
 orchestration/mlops/dreaddit-train.csv
 deployment/batch/output/*
 deployment/batch/vectorizer/*
+deployment/streaming/docker-compose.yml
+best-practices/docker-compose.yml
 
 

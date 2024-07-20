@@ -1,0 +1,7 @@
+tqdm
+requests
+joblib
+pyarrow
+psycopg
+psycopg_binary
+evidently 

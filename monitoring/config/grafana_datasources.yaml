@@ -4,16 +4,17 @@ apiVersion: 1
 # list of datasources to insert/update
 # available in the database
 datasources:
-  - name: PostgreSQL
+  - name: NewPostgreSQL
     type: postgres
     url: db:5432
-    database: test
     user: postgres
     secureJsonData:
       password: 'example'
     jsonData:
       sslmode: 'disable'
-      # database: test
+      database: test
+
+      
 
 # # config file version
 # apiVersion: 1

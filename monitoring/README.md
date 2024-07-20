@@ -18,3 +18,5 @@ You also need to set your AWS credentials as environment variables
 export AWS_ACCESS_KEY_ID=your_key_id
 export AWS_SECRET_ACCESS_KEY=your_secret_access_key
 ```
+
+Note that we generated two repots here because we couldn't combine the column mapping for numerical and text(NLP) data

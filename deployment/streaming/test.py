@@ -22,6 +22,5 @@ event = {
     ]
 }
 
-
 result = lambda_function.lambda_handler(event, None)
 print(result)

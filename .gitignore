@@ -35,5 +35,6 @@ deployment/batch/output/*
 deployment/batch/vectorizer/*
 deployment/streaming/docker-compose.yml
 best-practices/docker-compose.yml
+monitoring/workspace/*
 
 

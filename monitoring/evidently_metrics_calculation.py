@@ -64,8 +64,8 @@ report = Report(
        
    ]
 )
-begin = datetime.datetime.today()
-# begin = datetime.datetime(2022, 2, 1, 0, 0)
+# begin = datetime.datetime.today()
+begin = datetime.datetime(2024, 1, 1, 0, 0)
 
 @task
 def prep_db():
@@ -78,16 +78,12 @@ def prep_db():
 
 @task
 def calculate_metrics_postgresql(curr, i):
-	print(i)
 	batch_size = 5
 	batch_end = min(i + batch_size, len(raw_data))
-
-	# current_data = feature_transformation(raw_data)
 	current_data = raw_data.iloc[i:batch_end]
 	features, _ = prepare_features(current_data, vect)
 
 	current_data['predictions'] = model.predict(features)
-	# print(current_data['predictions'])
 
 	report.run(reference_data = reference_data, current_data = current_data,
 		column_mapping=column_mapping)
@@ -98,10 +94,12 @@ def calculate_metrics_postgresql(curr, i):
 	num_drifted_columns = result['metrics'][1]['result']['number_of_drifted_columns']
 	number_of_different_missing_values = result["metrics"][2]["result"]["current"]["number_of_different_missing_values"]
 	oov_drift_score = result["metrics"][3]["result"]["drift_by_columns"]["OOV %"]["drift_score"]
+	#Increase timestamp by a day
+	timestamp = begin + datetime.timedelta(i)
 
 	curr.execute(
 		"insert into metrics_table(timestamp, prediction_drift, num_drifted_columns, number_of_different_missing_values, oov_drift_score) values (%s, %s, %s, %s, %s)",
-		(begin + datetime.timedelta(i), prediction_drift, num_drifted_columns, number_of_different_missing_values, oov_drift_score)
+		(timestamp, prediction_drift, num_drifted_columns, number_of_different_missing_values, oov_drift_score)
 	)
 
 @flow

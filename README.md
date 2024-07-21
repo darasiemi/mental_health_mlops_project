@@ -7,3 +7,4 @@ Future Works
 - Logging of models with orchestration pipeline
 - Interconnection of all modules. The methodology of going from week 1 module to week 6, caused that there were some modules that were sort of disconnect (e.g orchestration) 
 - Loading data from S3
+- Setting up alerts from Grafana for automatic retraining.

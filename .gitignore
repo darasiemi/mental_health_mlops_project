@@ -36,5 +36,11 @@ deployment/batch/vectorizer/*
 deployment/streaming/docker-compose.yml
 best-practices/docker-compose.yml
 monitoring/workspace/*
+tests/unit-tests/.pytest_cache
+tests/unit-tests/__pycache__
+utils/__pycache__
+utils/.pytest_cache
+__pycache__
+.pytest_cache
 
 

@@ -4,7 +4,7 @@ import boto3
 import pickle
 from io import BytesIO
 
-s3_location = "mlflows-artifacts-remote"
+s3_location = os.getenv("MODEL_BUCKET","mlflows-artifacts-remote")
 
 def load_model_n_vect(RUN_ID):
     logged_model = f's3://{s3_location}/3/{RUN_ID}/artifacts/model'

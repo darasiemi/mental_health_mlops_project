@@ -7,6 +7,12 @@ COPY [ "Pipfile", "Pipfile.lock", "./" ]
 
 RUN pipenv install --system --deploy
 
-COPY [ "lambda_function.py", "model.py", "./" ]
+COPY model/* ./model/
+
+COPY utils/* ./utils/
+
+COPY vectorizer/* ./vectorizer/
+
+COPY [ "lambda_function.py", "./" ]
 
 CMD [ "lambda_function.lambda_handler" ]

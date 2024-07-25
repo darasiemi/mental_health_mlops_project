@@ -1,4 +1,3 @@
-data/*
 model/experiment_tracking/models/*
 model/experiment_tracking/vectorizer/*
 kaggle.json

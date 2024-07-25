@@ -6,7 +6,7 @@ import scipy
 from sklearn.preprocessing import StandardScaler
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from utils.cleaning import removal
-# from cleaning import removal
+
 
 numerical_columns = ['lex_liwc_Tone',
  'lex_liwc_negemo',
@@ -19,7 +19,7 @@ scaler = StandardScaler()
 def process_categorical_features(df, vect = None):
     posts = df[["text"]]
     posts["text"] = posts["text"].apply(removal)
-    # posts["sentiment"] = posts["text"].apply(mood)
+   
     X = posts["text"]
     if vect:
         X = vect.transform(X)

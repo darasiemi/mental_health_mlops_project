@@ -2,6 +2,9 @@
 
 Note that you should create a folder `data` and download the train and test data to this directory in the parent directory (i.e `mental_health_mlops_project/data`). This is done in the `stress_prediction_notebook` under the `model/training` folder
 
+
+
+
 General Guidelines
 - After spinning up a docker container, you can run `docker ps` to check information about running containers
 - You can work with conda environment for development, but it's easier to use `pip environment` for containerization. If you want to maintain the environment using conda, you will need a `requirements.txt` file to pip install in your Dockerfile.

@@ -55,9 +55,6 @@ from flask import Flask, request, jsonify
 
 RUN_ID = os.getenv('RUN_ID',"57342ae687254eeeac28602bb8d42aca")
 s3_location = "mlflows-artifacts-remote"
-# TRACKING_SERVER_HOST = "ec2-13-53-192-42.eu-north-1.compute.amazonaws.com" # fill in with the public DNS of the EC2 instance
-# MLFLOW_TRACKING_URI = f"http://{TRACKING_SERVER_HOST}:5000"
-# mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
 def load_model_n_vect(RUN_ID):
     logged_model = f's3://{s3_location}/3/{RUN_ID}/artifacts/model'
@@ -102,7 +99,6 @@ def removal(text):
 def process_categorical_features(df, vect = None):
     posts = df[["text"]]
     posts["text"] = posts["text"].apply(removal)
-    # posts = posts["text"].apply(removal)
     X = posts["text"]
     if vect:
         X = vect.transform(X)

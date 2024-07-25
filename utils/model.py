@@ -13,14 +13,12 @@ import pandas as pd
 
 from utils.model_loader import vect
 from utils.model_loader import load_model_n_vect
-# from feature_engineering import feature_transformation
 from utils.encoders import prepare_features
 
 def base64_decode(encoded_data):
     decoded_data = base64.b64decode(encoded_data).decode('utf-8')
     ride_event = json.loads(decoded_data)
     return ride_event
-
 
 class ModelService:
     def __init__(self, model, model_version=None, callbacks=None):
@@ -39,11 +37,9 @@ class ModelService:
         for record in event['Records']:
             encoded_data = record['kinesis']['data']
             decoded_data = base64.b64decode(encoded_data).decode('utf-8')
-            # print(decoded_data)
             
             stress_event = json.loads(decoded_data)
             stress_event  = pd.DataFrame([stress_event])
-            #print(stress_event)
         
             features, _ = prepare_features(stress_event, vect)
             prediction = self.predict(features)
@@ -72,13 +68,12 @@ class KinesisCallback:
         self.prediction_stream_name = prediction_stream_name
 
     def put_record(self, prediction_event):
-        # ride_id = prediction_event['prediction']['ride_id']
 
         self.kinesis_client.put_record(
             StreamName=self.prediction_stream_name,
-            Data=json.dumps(prediction_event)
+            Data=json.dumps(prediction_event),
+            PartitionKey=str(1)
         )
-
 
 def create_kinesis_client():
     endpoint_url = os.getenv('KINESIS_ENDPOINT_URL')
@@ -87,7 +82,6 @@ def create_kinesis_client():
         return boto3.client('kinesis')
 
     return boto3.client('kinesis', endpoint_url=endpoint_url)
-
 
 def init(prediction_stream_name: str, run_id: str, test_run: bool):
     model, _ = load_model_n_vect(run_id)

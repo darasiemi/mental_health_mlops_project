@@ -1,6 +1,5 @@
 import datetime
 import time
-# import random
 import sys
 import os
 
@@ -52,7 +51,6 @@ column_mapping = ColumnMapping(
     prediction='predictions',
     numerical_features=numerical_columns,
     text_features = categorical_columns
-    # categorical_features=categorical_columns
 )
 
 report = Report(
@@ -64,7 +62,7 @@ report = Report(
        
    ]
 )
-# begin = datetime.datetime.today()
+
 begin = datetime.datetime(2024, 1, 1, 0, 0)
 
 @task

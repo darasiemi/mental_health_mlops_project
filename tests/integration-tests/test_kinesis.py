@@ -23,22 +23,18 @@ shard_iterator_response = kinesis_client.get_shard_iterator(
 
 shard_iterator_id = shard_iterator_response['ShardIterator']
 
-
 records_response = kinesis_client.get_records(
     ShardIterator=shard_iterator_id,
     Limit=1,
 )
 
-
 records = records_response['Records']
 pprint(records)
 
 records = records_response['Records']
 pprint(records)
-
 
 assert len(records) == 1
-
 
 actual_record = json.loads(records[0]['Data'])
 pprint(actual_record)
@@ -51,7 +47,6 @@ expected_record = {
                       },
                    }   
         
-
 diff = DeepDiff(actual_record, expected_record, significant_digits=1)
 print(f'diff={diff}')
 

@@ -1,3 +1,11 @@
+First, you need to select your Python interpreter which houses your dependencies. This can be done by `CMD+Shift+P` on VS Code(MacOS). Then enter the path `path-to-you-environment/bin/python`. 
+
+
+To run pytest, cd to the unit-tests directory. The `--disable-warnings` to avoid warnings that clutter the terminal 
+```bash
+pytest model_test.py --disable-warnings
+```
+
 Install deepdiff as a development package
 ```bash
 pipenv install --dev deepdiff
@@ -19,54 +27,13 @@ To make `run.sh` executable,
 ```bash
 chmod +x run.sh
 ```
-To build docker image,
+To run integraton test, cd to `tests/integration-tests` and run the command
 ```bash
-docker build -t stream-model-stress:v2 .
-```
-To run docker container
-```bash
-docker run -it --rm \
-    -p 8080:8080 \
-    -e PREDICTIONS_STREAM_NAME="stress_predictions" \
-    -e RUN_ID="57342ae687254eeeac28602bb8d42aca" \
-    -e MODEL_LOCATION="/app/model" \
-    -e TEST_RUN="True" \
-    -e AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-    -e AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-    -e AWS_DEFAULT_REGION="eu-north-1" \
-    -v $(pwd)/model:/app/model \
-    stream-model-stress:v2
+./run.sh
 ```
 
-To check list of streams in localstack
+If you get a No Credentials error, export your AWS credentials
 ```bash
-aws --endpoint-url=http://localhost:4566 \
-    kinesis list-streams
-```
-
-To create stream in localstack
-```bash
-aws --endpoint-url=http://localhost:4566 \
-    kinesis create-stream \
-    --stream-name stress_predictions \
-    --shard-count 1
-```
-
-To get shard iterator from kinesis
-```bash
-export PREDICTIONS_STREAM_NAME="ride_predictions"
-export SHARD='shardId-000000000000'
-aws  --endpoint-url=http://localhost:4566 \
-    kinesis     get-shard-iterator \
-    --shard-id ${SHARD} \
-    --shard-iterator-type TRIM_HORIZON \
-    --stream-name ${PREDICTIONS_STREAM_NAME} \
-    --query 'ShardIterator'
-```
-
-To get records
-```bash
-aws  --endpoint-url=http://localhost:4566 \
-    kinesis     get-records \
-    --shard-iterator "AAAAAAAAAAHebXZfJF+ip5pICTTimTJrH3nDHrcq2uvIwSBoiSV6mbmJGs7l7eHF6YjuDWcd83eV93YnlwBGhdDkNwFGVa6qibalZBwWhh3pPJUwlk/njd1c3tHhpXnBCLhkCLxFN0u6pi9xEGDdgNL16iOeGml6YvhxInhhEhJwgSi2kAG7XTqMZoDcl/4RUCzDRWGGmCwCSwzzbCJQJEV60vuGKVeV"
+export AWS_ACCESS_KEY_ID=your_access_key_id
+export AWS_SECRET_ACCESS_KEY=your_secret_access_key
 ```

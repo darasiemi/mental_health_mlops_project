@@ -1,12 +1,7 @@
-import pandas as pd
 import numpy as np
-from typing import Dict, List, Optional, Tuple
-from scipy.sparse._csr import csr_matrix
-import scipy
 from sklearn.preprocessing import StandardScaler
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from utils.cleaning import removal
-# from cleaning import removal
 
 numerical_columns = ['lex_liwc_Tone',
  'lex_liwc_negemo',

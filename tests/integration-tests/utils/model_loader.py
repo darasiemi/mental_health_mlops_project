@@ -1,27 +1,21 @@
-import os
-import mlflow
-import boto3
 import pickle
-from io import BytesIO
+import mlflow
 
-# s3_location = os.getenv("MODEL_BUCKET","mlflows-artifacts-remote")
+def load_model_vect():
+    "Load data locally"
+    logged_model_path = './model'
+    local_model = mlflow.pyfunc.load_model(logged_model_path)
 
-def load_model_n_vect():
-    logged_model = f'model'
-    model = mlflow.pyfunc.load_model(logged_model)
-
-    with open("vectorizer/vectorizer.b", "rb") as f_in:
-        vect = pickle.load(f_in)
+    with open("./vectorizer/vectorizer.b", "rb") as f_in:
+        local_vect = pickle.load(f_in)
 
     print("model and vect loaded successfully")
-    
-    return model, vect
+    return local_model, local_vect
 
-model, vect = load_model_n_vect()
+model, vect = load_model_vect()
 
 print("Model imported successfully")
 
 if __name__ == "__main__":
-    model, vect = load_model_n_vect()
+    model, vect = load_model_vect()
     print("Model loaded successfully")
-

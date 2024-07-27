@@ -1,22 +1,11 @@
+#pylint: disable=line-too-long
 import datetime
 import time
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from utils.model_loader import model, vect
-from utils.feature_engineering import feature_transformation
-from utils.encoders import prepare_features
-
-import logging 
-import uuid
-import pytz
+import logging
 import pandas as pd
-import io
 import psycopg
-import joblib
-
 import random
 
 from prefect import task, flow
@@ -24,6 +13,12 @@ from prefect import task, flow
 from evidently.report import Report
 from evidently import ColumnMapping
 from evidently.metrics import ColumnDriftMetric, DatasetDriftMetric, DatasetMissingValuesMetric,TextDescriptorsDriftMetric
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from utils.model_loader import model, vect
+from utils.feature_engineering import feature_transformation
+from utils.encoders import prepare_features
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
 
@@ -44,7 +39,11 @@ create table metrics_table(
 raw_data = pd.read_csv('../data/dreaddit-test.csv')
 reference_data = pd.read_parquet("../data/reference.parquet")
 
-numerical_columns = ["lex_liwc_Tone", "lex_liwc_i", "lex_liwc_negemo", "lex_liwc_Clout", "sentiment"]
+numerical_columns = ["lex_liwc_Tone" \
+					,"lex_liwc_i" \
+					,"lex_liwc_negemo" \
+				    ,"lex_liwc_Clout" \
+					,"sentiment"]
 categorical_columns = ["text"]
 column_mapping = ColumnMapping(
     target=None,

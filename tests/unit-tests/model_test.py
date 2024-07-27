@@ -1,15 +1,13 @@
 # import lambda_function
-
 from pathlib import Path
-
 import sys
 import os
 import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
-import utils.model as model_manager
 from utils.model_loader import model, vect
+import utils.model as model_manager
 from utils.encoders import prepare_features
 
 
@@ -37,7 +35,7 @@ def test_base64_decode():
     assert actual_result == expected_result
 
 def test_prepare_features():
-    input =    {
+    input_data =    {
                     "text": "Its like that, if you want or not. ME: I have no problem, if it takes longer. But you asked my friend for help and let him wait for one hour and then you haven’t prepared anything. Thats not what you asked for. Instead of 3 hours, he helped you for 10 hours till 5am...",
                     "lex_liwc_Tone": 5.95,
                     "lex_liwc_i": 5.45,
@@ -45,8 +43,8 @@ def test_prepare_features():
                     "lex_liwc_Clout": 57.22,
                     "sentiment": 0.0
                 }
-    input = pd.DataFrame([input])
-    features, _ = prepare_features(input, vect)
+    input_data = pd.DataFrame([input_data])
+    features, _ = prepare_features(input_data, vect)
     actual_feature_shape = features.shape[1]
     expected_feature_shape = 9453
 
@@ -55,7 +53,7 @@ def test_prepare_features():
 def test_predict():
     model_service = model_manager.ModelService(model)
 
-    input =    {
+    input_data =    {
                     "text": "Its like that, if you want or not. ME: I have no problem, if it takes longer. But you asked my friend for help and let him wait for one hour and then you haven’t prepared anything. Thats not what you asked for. Instead of 3 hours, he helped you for 10 hours till 5am...",
                     "lex_liwc_Tone": 5.95,
                     "lex_liwc_i": 5.45,
@@ -63,8 +61,8 @@ def test_predict():
                     "lex_liwc_Clout": 57.22,
                     "sentiment": 0.0
                 }
-    input = pd.DataFrame([input])
-    features, _ = prepare_features(input, vect)
+    input_data = pd.DataFrame([input_data])
+    features, _ = prepare_features(input_data, vect)
     prediction = model_service.predict(features)
 
     assert prediction in [0, 1], f"Prediction is not 0 or 1: {prediction}"

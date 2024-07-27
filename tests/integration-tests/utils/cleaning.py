@@ -1,13 +1,9 @@
-import pandas as pd
 import re
-
 import nltk
-import re
+from nltk.corpus import stopwords
 
 # Download the stopwords resource
 nltk.download('stopwords')
-
-from nltk.corpus import stopwords
 stopwords = stopwords.words('english')
 
 stemmer = nltk.SnowballStemmer("english")

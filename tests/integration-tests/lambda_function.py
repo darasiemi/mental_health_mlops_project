@@ -1,8 +1,5 @@
 import os
-import sys
-
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
-import utils.model as model 
+from utils import model
 
 PREDICTIONS_STREAM_NAME = os.getenv('PREDICTIONS_STREAM_NAME', 'stress_predictions')
 RUN_ID = os.getenv('RUN_ID',"57342ae687254eeeac28602bb8d42aca")

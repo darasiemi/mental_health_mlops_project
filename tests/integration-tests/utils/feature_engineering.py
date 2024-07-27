@@ -1,6 +1,4 @@
 import pandas as pd
-import numpy as np
-
 
 def feature_transformation(df):
     date_column = ['social_timestamp']

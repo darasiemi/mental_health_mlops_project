@@ -1,19 +1,10 @@
 import os
 import json
 import base64
-
 import boto3
-import mlflow
-
-import sys
-import os
 import pandas as pd
-
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from utils.model_loader import vect
-from utils.model_loader import load_model_n_vect
-# from feature_engineering import feature_transformation
+from utils.model_loader import load_model_vect
 from utils.encoders import prepare_features
 
 def base64_decode(encoded_data):
@@ -35,12 +26,11 @@ class ModelService:
     def lambda_handler(self, event):    
         predictions_events = []
         predictions = []
-        
         for record in event['Records']:
             encoded_data = record['kinesis']['data']
             decoded_data = base64.b64decode(encoded_data).decode('utf-8')
             # print(decoded_data)
-            
+                 
             stress_event = json.loads(decoded_data)
             stress_event  = pd.DataFrame([stress_event])
             #print(stress_event)
@@ -91,7 +81,7 @@ def create_kinesis_client():
 
 
 def init(prediction_stream_name: str, run_id: str, test_run: bool):
-    model, _ = load_model_n_vect()
+    model, _ = load_model_vect()
 
     callbacks = []
     print(test_run)

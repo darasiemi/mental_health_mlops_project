@@ -1,30 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[1]:
-
-
-# Adapted from https://www.kaggle.com/code/ruchitass/predicting-stress-a-machine-learning-approach
+import sys
+import re
+import os
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-import nltk
-import re
-import sys
-
-# Download the stopwords resource
-nltk.download('stopwords')
-
-stemmer = nltk.SnowballStemmer("english")
-
 from wordcloud import STOPWORDS
-from PIL import Image
-from wordcloud import WordCloud
-
-# from textblob import TextBlob
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -33,17 +15,20 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+import nltk
+
+# Download the stopwords resource
+nltk.download('stopwords')
+
+stemmer = nltk.SnowballStemmer("english")
 
 
-# import nltk
-# import re
-# stemmer = nltk.SnowballStemmer("english")
+from PIL import Image
+
 from nltk.corpus import stopwords
 stopwords = stopwords.words('english')
 # import string
 
-import matplotlib.pyplot as plt
-import kaggle
 import pickle
 
 
@@ -60,9 +45,6 @@ for char in string.punctuation:
     punct.append(char)
 
 
-# In[4]:
-
-
 import warnings
 
 # Suppress all warnings
@@ -71,7 +53,6 @@ warnings.filterwarnings('ignore')
 
 import mlflow
 from mlflow.tracking import MlflowClient
-import os
 
 #os.environ["AWS_PROFILE"] = "dara" # fill in with your AWS profile. More info: https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html#setup-credentials
 
@@ -125,7 +106,11 @@ def process_categorical_features(df, vect = None):
     return X, vect
     
 def prepare_features(df, vect=None):
-    numerical_columns = ["lex_liwc_Tone", "lex_liwc_i", "lex_liwc_negemo", "lex_liwc_Clout", "sentiment"]
+    numerical_columns = ["lex_liwc_Tone" \
+					,"lex_liwc_i" \
+					,"lex_liwc_negemo" \
+				    ,"lex_liwc_Clout" \
+					,"sentiment"]
     scaler = StandardScaler()
     
     X_categorical, vect = process_categorical_features(df, vect)

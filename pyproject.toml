@@ -6,13 +6,14 @@ disable = [
     "missing-class-docstring",
     "missing-module-docstring",
     "invalid-name",
-    "too-few-public-methods"
+    "too-few-public-methods",
+    "not-context-manager",
+    "anomalous-backslash-in-string"
 ]
 
 [tool.black]
 line-length = 88
 target-version = ['py39']
-skip-string-normalization = true
 
 [tool.isort]
 multi_line_output = 3

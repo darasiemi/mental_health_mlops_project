@@ -8,7 +8,7 @@ To install dependencies
 pip install -r requirements.txt 
 ```
 
-To spin-up the container with grafana and others, run
+To spin-up the container with grafana and others, run in the `monitoring` folder
 ```bash
 docker-compose up --build
 ```

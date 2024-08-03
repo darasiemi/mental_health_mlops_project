@@ -1,4 +1,5 @@
 # import lambda_function
+# pylint: disable=line-too-long
 import requests
 
 event = {

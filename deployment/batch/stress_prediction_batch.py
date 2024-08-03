@@ -1,65 +1,40 @@
 #!/usr/bin/env python
 # coding: utf-8
-import sys
-import re
-import os
+# pylint: disable=line-too-long
+# pylint: disable=import-error
+# pylint: disable=redefined-outer-name
+# pylint: disable=ungrouped-imports
+# pylint: disable=duplicate-code
 
-import numpy as np
-import pandas as pd
-from wordcloud import STOPWORDS
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.feature_selection import mutual_info_classif
-from sklearn.preprocessing import StandardScaler
-from sklearn.naive_bayes import GaussianNB
-from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
+import os
+import re
+import sys
+import pickle
+import string
+import warnings
+
 import nltk
+import numpy as np
+import mlflow
+import pandas as pd
+from nltk.corpus import stopwords
+from mlflow.tracking import MlflowClient
+from sklearn.preprocessing import StandardScaler
+from sklearn.feature_extraction.text import CountVectorizer
+
+# Suppress all warnings
+warnings.filterwarnings("ignore")
 
 # Download the stopwords resource
 nltk.download("stopwords")
 
 stemmer = nltk.SnowballStemmer("english")
 
-
-from PIL import Image
-
-from nltk.corpus import stopwords
-
 stopwords = stopwords.words("english")
-# import string
-
-import pickle
-
-
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-
-# import warnings
-# warnings.filterwarnings("ignore")
-
-import string
-
-# Get a list of punctuations
-punct = []
-for char in string.punctuation:
-    punct.append(char)
-
-
-import warnings
-
-# Suppress all warnings
-warnings.filterwarnings("ignore")
-
-
-import mlflow
-from mlflow.tracking import MlflowClient
 
 # os.environ["AWS_PROFILE"] = "dara" # fill in with your AWS profile. More info: https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html#setup-credentials
 
-TRACKING_SERVER_HOST = "ec2-13-53-192-42.eu-north-1.compute.amazonaws.com"  # fill in with the public DNS of the EC2 instance
+TRACKING_SERVER_HOST = "ec2-16-171-59-38.eu-north-1.compute.amazonaws.com"  # fill in with the public DNS of the EC2 instance
 mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
 
 EXPERIMENT_NAME = "random-forest-best-models"
@@ -69,6 +44,10 @@ run_id = os.getenv("RUN_ID", "57342ae687254eeeac28602bb8d42aca")
 
 input_file = "dreaddit-test.csv"
 output_file = "output/stress_predictions.parquet"
+
+punct = []
+for char in string.punctuation:
+    punct.append(char)
 
 if not os.path.exists("output"):
     os.makedirs("output")
@@ -146,7 +125,6 @@ def load_model_n_vect(run_id):
 
 
 def apply_model(input_file, run_id, output_file):
-
     df = read_dataframe(input_file)
     model, vect = load_model_n_vect(run_id)
 
@@ -154,7 +132,6 @@ def apply_model(input_file, run_id, output_file):
     assert X_test.shape[1] == 9453, "feature size does not match"
 
     y_pred = model.predict(X_test)
-    "lex_liwc_Tone", "lex_liwc_i", "lex_liwc_negemo", "lex_liwc_Clout", "sentiment"
     df_result = pd.DataFrame()
     df_result["text"] = df["text"]
     df_result["lex_liwc_Tone"] = df["lex_liwc_Tone"]

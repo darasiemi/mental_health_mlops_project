@@ -1,60 +1,35 @@
-import json
+# pylint: disable=line-too-long
+# pylint: disable=unused-argument
+# pylint: disable=import-error
+# pylint: disable=redefined-outer-name
 import os
+import re
 import json
-import boto3
 import base64
-
-import mlflow
-
 import pickle
-
-import numpy as np
-import pandas as pd
+import string
+import warnings
+from io import BytesIO
 
 import nltk
-import re
-import sys
+import boto3
+import numpy as np
+import mlflow
+import pandas as pd
+from nltk.corpus import stopwords
+from sklearn.preprocessing import StandardScaler
+from sklearn.feature_extraction.text import CountVectorizer
+
+# from mlflow.tracking import MlflowClient
 
 # Download the stopwords resource
 nltk.download("stopwords")
 
+stopwords = stopwords.words("english")
+
 stemmer = nltk.SnowballStemmer("english")
 
-# from textblob import TextBlob
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.feature_selection import mutual_info_classif
-from sklearn.preprocessing import StandardScaler
-from sklearn.naive_bayes import GaussianNB
-from sklearn.ensemble import RandomForestClassifier
-from nltk.corpus import stopwords
-
-stopwords = stopwords.words("english")
-# import string
-
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-import warnings
-
 warnings.filterwarnings("ignore")
-
-import string
-
-# Get a list of punctuations
-punct = []
-for char in string.punctuation:
-    punct.append(char)
-
-from mlflow.tracking import MlflowClient
-import os
-from io import BytesIO
-
-import tracemalloc
-
-tracemalloc.start()
-
 
 kinesis_client = boto3.client("kinesis")
 
@@ -71,9 +46,13 @@ TEST_RUN = os.getenv("TEST_RUN", "False") == "True"
 
 s3_location = "mlflows-artifacts-remote"
 
+punct = []
+for char in string.punctuation:
+    punct.append(char)
 
-def load_model_n_vect(RUN_ID):
-    logged_model = f"s3://{s3_location}/3/{RUN_ID}/artifacts/model"
+
+def load_model_n_vect(run_id):
+    logged_model = f"s3://{s3_location}/3/{run_id}/artifacts/model"
     # logged_model = f'runs:/{RUN_ID}/model'
     model = mlflow.pyfunc.load_model(logged_model)
 
@@ -82,7 +61,7 @@ def load_model_n_vect(RUN_ID):
 
     # Define the S3 bucket and the file path
     # bucket_name = 'mlflows-artifacts-remote'
-    key = f"3/{RUN_ID}/artifacts/vectorizer/vectorizer.b"
+    key = f"3/{run_id}/artifacts/vectorizer/vectorizer.b"
 
     # Download the file from S3 into memory
     response = s3.get_object(Bucket=s3_location, Key=key)

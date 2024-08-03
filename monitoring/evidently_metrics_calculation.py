@@ -1,4 +1,6 @@
 # pylint: disable=line-too-long
+# pylint: disable=wrong-import-order
+# pylint: disable=wrong-import-position
 import time
 import random
 import logging
@@ -13,13 +15,14 @@ from evidently.metrics import (
     ColumnDriftMetric,
     DatasetDriftMetric,
     DatasetMissingValuesMetric,
-    TextDescriptorsDriftMetric
+    TextDescriptorsDriftMetric,
 )
-
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from utils.encoders import prepare_features
 from utils.model_loader import vect, model
+
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s"

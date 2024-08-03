@@ -1,57 +1,41 @@
 #!/usr/bin/env python
 # pylint: disable=line-too-long
+# pylint: disable=import-error
+# pylint: disable=redefined-outer-name
 import os
 import re
 import pickle
-
-import numpy as np
-import pandas as pd
+import string
+import warnings
+from io import BytesIO
 
 import nltk
+import boto3
+import numpy as np
+import mlflow
+import pandas as pd
+from flask import Flask, jsonify, request
+from nltk.corpus import stopwords
+from sklearn.preprocessing import StandardScaler
+from sklearn.feature_extraction.text import CountVectorizer
 
-import warnings
+# from mlflow.tracking import MlflowClient
 
 warnings.filterwarnings("ignore")
 
 # Download the stopwords resource
 nltk.download("stopwords")
-
 stemmer = nltk.SnowballStemmer("english")
 
-# from textblob import TextBlob
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.feature_selection import mutual_info_classif
-from sklearn.preprocessing import StandardScaler
-from sklearn.naive_bayes import GaussianNB
-from sklearn.ensemble import RandomForestClassifier
-from nltk.corpus import stopwords
-
 stopwords = stopwords.words("english")
-# import string
 
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-
-import string
+RUN_ID = os.getenv("RUN_ID", "57342ae687254eeeac28602bb8d42aca")
+s3_location = "mlflows-artifacts-remote"
 
 # Get a list of punctuations
 punct = []
 for char in string.punctuation:
     punct.append(char)
-
-import mlflow
-from mlflow.tracking import MlflowClient
-import boto3
-import pickle
-from io import BytesIO
-
-from flask import Flask, request, jsonify
-
-RUN_ID = os.getenv("RUN_ID", "57342ae687254eeeac28602bb8d42aca")
-s3_location = "mlflows-artifacts-remote"
 
 
 def load_model_n_vect(RUN_ID):

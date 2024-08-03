@@ -6,6 +6,7 @@ I have explored the modes of deploying the stress prediction model, specifically
 - [Streaming](#streaming)
 
 ### Batch
+First, cd to the batch directory `deployment/batch`
 To convert notebook to python script
 ```bash
  jupyter nbconvert --to script stress_prediction_batch.ipynb
@@ -19,15 +20,15 @@ To convert notebook to python script
  python stress_prediction_batch.py dreaddit-test.csv output/stress_predictions.parquet
  ```
 ### Web Service
-To run the model as a web service, first create a deployment environment 
+To run the model as a web service, first create a deployment environment
 ```bash
 pipenv install scikit-learn==1.4.2 flask nltk==3.8.1 mlflow==2.12.2 --python=3.11
-``` 
+```
 To launch pip environment
 ```bash
 pipenv shell
 ```
-To launch web-service 
+To launch web-service
 ```bash
 python predict.py
 ```
@@ -92,7 +93,7 @@ python test.py
     -e PREDICTIONS_STREAM_NAME="stress_predictions" \
     -e RUN_ID="57342ae687254eeeac28602bb8d42aca"
     -e TEST_RUN="True"
-    -p 8080:8080 \  
+    -p 8080:8080 \
     stream-prediction-model:v1 \
 ```
 
@@ -132,5 +133,3 @@ To read from the stream
 
  echo ${RESULT} | jq -r '.Records[0].Data' | base64 --decode
  ```
-
-

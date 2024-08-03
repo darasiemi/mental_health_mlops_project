@@ -1,6 +1,4 @@
 # pylint: disable=line-too-long
-# pylint: disable=wrong-import-order
-# pylint: disable=wrong-import-position
 import time
 import random
 import logging

@@ -53,6 +53,11 @@ ls .git/hooks/
 ```
 You will see pre-commit in the hooks
 
+To use Makefile, run `make [target]`, e.g
+```bash
+make integration-test
+```
+
 General Guidelines
 - After spinning up a docker container, you can run `docker ps` to check information about running containers
 - You can work with conda environment for development, but it's easier to use `pip environment` for containerization. If you want to maintain the environment using conda, you will need a `requirements.txt` file to pip install in your Dockerfile.

@@ -13,19 +13,11 @@ repos:
   hooks:
     - id: isort
       name: isort (python)
-      args: [
-        "deployment",
-        "monitoring"
-        ]
 - repo: https://github.com/psf/black
   rev: 24.4.2
   hooks:
     - id: black
       language_version: python3.11
-      args: [
-        "deployment",
-        "monitoring"
-        ]
 
 - repo: local
   hooks:
@@ -37,18 +29,13 @@ repos:
       args: [
         "-rn", # Only display messages
         "-sn", # Don't display the score
-        "--recursive=y",
-        "deployment",
-        "monitoring"
+        "--recursive=y"
       ]
 - repo: local
   hooks:
     - id: pytest-check
       name: pytest-check
-      entry: pytest
+      entry: ./run_pytest.sh
       language: system
       pass_filenames: false
       always_run: true
-      args: [
-        "tests/unit-tests/"
-      ]

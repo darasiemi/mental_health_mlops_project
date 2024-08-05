@@ -9,7 +9,7 @@ if [ "${LOCAL_IMAGE_NAME}" == "" ]; then
     export LOCAL_IMAGE_NAME="stream-model-stress:${LOCAL_TAG}"
     export AWS_DEFAULT_REGION="eu-north-1"
     echo "LOCAL_IMAGE_NAME is not set, building a new image with tag ${LOCAL_IMAGE_NAME}"
-    docker build -t ${LOCAL_IMAGE_NAME} .
+    docker build -t ${LOCAL_IMAGE_NAME} ../../
 else
     echo "no need to build image ${LOCAL_IMAGE_NAME}"
 fi
@@ -18,7 +18,7 @@ fi
 docker-compose up -d
 
 #To wait for docker compose to run
-sleep 1
+sleep 5
 
 #To create stream in localstark for integration test
 aws --endpoint-url=http://localhost:4566 \

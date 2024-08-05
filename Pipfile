@@ -10,10 +10,17 @@ nltk = "==3.8.1"
 mlflow = "==2.12.2"
 boto3 = "*"
 gunicorn = "*"
-requests = "*"
+evidently = "*"
+psycopg = "*"
+prefect = "*"
 
 [dev-packages]
 deepdiff = "*"
+pytest = "*"
+pylint = "*"
+isort = "*"
+black = "*"
+pre-commit = "*"
 
 [requires]
 python_version = "3.11"

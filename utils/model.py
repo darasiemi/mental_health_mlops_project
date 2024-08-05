@@ -3,22 +3,17 @@ import json
 import base64
 
 import boto3
-import mlflow
-
-import sys
-import os
 import pandas as pd
 
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from utils.model_loader import vect
-from utils.model_loader import load_model_n_vect
 from utils.encoders import prepare_features
+from utils.model_loader import vect, load_model_vect
+
 
 def base64_decode(encoded_data):
-    decoded_data = base64.b64decode(encoded_data).decode('utf-8')
+    decoded_data = base64.b64decode(encoded_data).decode("utf-8")
     ride_event = json.loads(decoded_data)
     return ride_event
+
 
 class ModelService:
     def __init__(self, model, model_version=None, callbacks=None):
@@ -30,29 +25,29 @@ class ModelService:
         pred = self.model.predict(features)
         return int(pred[0])
 
-    def lambda_handler(self, event):    
+    def lambda_handler(self, event):
         predictions_events = []
         predictions = []
-        
-        for record in event['Records']:
-            encoded_data = record['kinesis']['data']
-            decoded_data = base64.b64decode(encoded_data).decode('utf-8')
-            
+        for record in event["Records"]:
+            encoded_data = record["kinesis"]["data"]
+            decoded_data = base64.b64decode(encoded_data).decode("utf-8")
+            # print(decoded_data)
+
             stress_event = json.loads(decoded_data)
-            stress_event  = pd.DataFrame([stress_event])
-        
+            stress_event = pd.DataFrame([stress_event])
+            # print(stress_event)
+
             features, _ = prepare_features(stress_event, vect)
             prediction = self.predict(features)
 
-            predictions.append({
-                'stress_prediction': prediction })
-            
+            predictions.append({"stress_prediction": prediction})
+
             prediction_event = {
-                'model': 'stress_prediction_model',
-                'version': '123',
-                'prediction': {
-                    'stress_prediction': prediction,  
-                }
+                "model": "stress_prediction_model",
+                "version": "123",
+                "prediction": {
+                    "stress_prediction": prediction,
+                },
             }
 
             for callback in self.callbacks:
@@ -60,7 +55,8 @@ class ModelService:
 
             predictions_events.append(prediction_event)
 
-            return {'predictions': predictions_events}
+            return {"predictions": predictions_events}
+
 
 class KinesisCallback:
     def __init__(self, kinesis_client, prediction_stream_name):
@@ -68,23 +64,26 @@ class KinesisCallback:
         self.prediction_stream_name = prediction_stream_name
 
     def put_record(self, prediction_event):
+        # ride_id = prediction_event['prediction']['ride_id']
 
         self.kinesis_client.put_record(
             StreamName=self.prediction_stream_name,
             Data=json.dumps(prediction_event),
-            PartitionKey=str(1)
+            PartitionKey=str(1),
         )
 
+
 def create_kinesis_client():
-    endpoint_url = os.getenv('KINESIS_ENDPOINT_URL')
+    endpoint_url = os.getenv("KINESIS_ENDPOINT_URL")
 
     if endpoint_url is None:
-        return boto3.client('kinesis')
+        return boto3.client("kinesis")
 
-    return boto3.client('kinesis', endpoint_url=endpoint_url)
+    return boto3.client("kinesis", endpoint_url=endpoint_url)
+
 
 def init(prediction_stream_name: str, run_id: str, test_run: bool):
-    model, _ = load_model_n_vect(run_id)
+    model, _ = load_model_vect()
 
     callbacks = []
     print(test_run)

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd tests
+cd tests/
 
 pytest unit-tests/

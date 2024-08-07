@@ -2,4 +2,4 @@
 
 cd tests/
 
-pytest unit-tests/
+pytest --disable-warnings unit-tests/

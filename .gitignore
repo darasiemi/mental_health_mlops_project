@@ -39,7 +39,6 @@ tests/unit-tests/.pytest_cache
 tests/unit-tests/__pycache__
 utils/__pycache__
 utils/.pytest_cache
+infrastructure/.terraform/*
 __pycache__
 .pytest_cache
-
-

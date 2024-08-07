@@ -3,7 +3,7 @@ terraform {
   required_version = ">= 1.0"
   backend "s3" {
     bucket  = "tf-state-mlops-zoomcamp-dara"
-    key     = "mlops-zoomcamp-stg.tfstate"
+    key     = "mental-health-stg.tfstate"
     region  = "eu-north-1"
     encrypt = true
   }
@@ -30,7 +30,7 @@ output "model_bucket" {
 }
 
 
-# # ride_events
+# # stress_events
 # module "source_kinesis_stream" {
 #   source = "./modules/kinesis"
 #   retention_period = 48
@@ -39,7 +39,7 @@ output "model_bucket" {
 #   tags = var.project_id
 # }
 
-# # ride_predictions
+# # stress_predictions
 # module "output_kinesis_stream" {
 #   source = "./modules/kinesis"
 #   retention_period = 48

@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "project_id" {
   description = "project_id"
-  default = "mlops-zoomcamp"
+  default = "mental-health-project"
 }
 
 variable "source_stream_name" {

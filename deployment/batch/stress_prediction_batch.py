@@ -147,6 +147,9 @@ def apply_model(input_file, run_id, output_file):
     df_result.to_parquet(output_file, index=False)
 
 
+print("Batch completed")
+
+
 if __name__ == "__main__":
     input_file = sys.argv[1]
     output_file = sys.argv[2]

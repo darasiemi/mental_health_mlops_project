@@ -36,7 +36,6 @@ Likewise, to reformat
 black monitoring deployment
 ```
 
-
 To fix the import order,
 ```bash
 isort [folder]
@@ -58,16 +57,42 @@ To use Makefile, run `make [target]`, e.g
 make integration-test
 ```
 
+To setup infrastructure using Terraform,[x].
+
+To deploy manually, first run the deploy-manual script,(assuming you are in the `mental_health_mlops_project`)
+```bash
+./scripts/deploy-manual.sh
+```
+
+To add data to the kinesis stream. Note that we send encoded data because our actual data is multimodal with text and numerical features. I was unable to pass the raw data on the terminal without encoding
+```bash
+export KINESIS_STREAM_INPUT=stg_stress_events-mental-health-project
+aws kinesis put-record \
+    --stream-name ${KINESIS_STREAM_INPUT} \
+    --partition-key 1 \
+    --data 'ewogICAgInRleHQiOiAiSXRzIGxpa2UgdGhhdCwgaWYgeW91IHdhbnQgb3Igbm90LiBNRTogSSBoYXZlIG5vIHByb2JsZW0sIGlmIGl0IHRha2VzIGxvbmdlci4gQnV0IHlvdSBhc2tlZCBteSBmcmllbmQgZm9yIGhlbHAgYW5kIGxldCBoaW0gd2FpdCBmb3Igb25lIGhvdXIgYW5kIHRoZW4geW91IGhhdmVu4oCZdCBwcmVwYXJlZCBhbnl0aGluZy4gVGhhdHMgbm90IHdoYXQgeW91IGFza2VkIGZvci4gSW5zdGVhZCBvZiAzIGhvdXJzLCBoZSBoZWxwZWQgeW91IGZvciAxMCBob3VycyB0aWxsIDVhbS4uLiIsCiAgICAibGV4X2xpd2NfVG9uZSI6IDUuOTUsCiAgICAibGV4X2xpd2NfaSI6IDUuNDUsCiAgICAibGV4X2xpd2NfbmVnZW1vIjogMS44MiwKICAgICJsZXhfbGl3Y19DbG91dCI6IDU3LjIyLAogICAgInNlbnRpbWVudCI6IDAuMAp9'
+
+```
+
+This returns a shard-id if run successfully.
+
+You can now check CloudWatch on AWS to confirm that the Lambda function was triggered and runs successfully.
+
+
 General Guidelines
 - After spinning up a docker container, you can run `docker ps` to check information about running containers
 - You can work with conda environment for development, but it's easier to use `pip environment` for containerization. If you want to maintain the environment using conda, you will need a `requirements.txt` file to pip install in your Dockerfile.
 Future Works
 - Creation of alerts and triggers for retraining in orchestration
 - Logging of models with orchestration pipeline
-- Interconnection of all modules. The methodology of going from week 1 module to week 6, caused that there were some modules that were sort of disconnect (e.g orchestration)
-- Loading data from S3
+- Store and load the data from S3
+- Incorporation of the utils function into the deployment Python modules. However, this were left in this implementation to show different methods of loading the model and vectorizer artifacts (i.e. directly from S3 like in deployment scripts, and locally (already downloaded from S3) as in the `utils/model_loader.py`)
 - Setting up alerts from Grafana for automatic retraining.
 - Poetry for managing dependencies
+- Making utils to load data from S3 instead of having to download it locally from S3 first before loading.
+- CI/CD
+- Interconnection of all modules. The methodology of going from week 1 module to week 6, caused that there were some modules that were sort of disconnect (e.g orchestration)
+- Optimizing code to facilitate lower cloud costs.
 
 To Do,
 Fix path issues for model monitoring

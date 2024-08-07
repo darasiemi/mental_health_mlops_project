@@ -3,8 +3,12 @@ import re
 import nltk
 from nltk.corpus import stopwords
 
-# Download the stopwords resource
-nltk.download("stopwords")
+nltk.data.path.append("/tmp")
+
+# Download the stopwords data
+nltk.download("stopwords", download_dir="/tmp")
+
+# nltk.download("stopwords")
 stopwords = stopwords.words("english")
 
 stemmer = nltk.SnowballStemmer("english")

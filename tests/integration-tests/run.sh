@@ -2,6 +2,40 @@
 
 cd "$(dirname "$0")"
 
+RUN_ID="57342ae687254eeeac28602bb8d42aca"
+EXPERIMENT_ID=3
+MODEL_BUCKET="mlflows-artifacts-remote"
+MODEL_DIR="../../model"
+VECTORIZER_DIR="../../vectorizer"
+
+#Download Model and Vectorizer
+# Function to download model
+download_model() {
+    echo "Downloading model..."
+    aws s3 cp --recursive s3://$MODEL_BUCKET/$EXPERIMENT_ID/$RUN_ID/artifacts/model/ $MODEL_DIR
+}
+
+# Function to download vectorizer
+download_vectorizer() {
+    echo "Downloading vectorizer..."
+    aws s3 cp --recursive s3://$MODEL_BUCKET/$EXPERIMENT_ID/$RUN_ID/artifacts/vectorizer/ $VECTORIZER_DIR
+}
+
+# Check if model directory exists and is not empty
+if [ -d "$MODEL_DIR" ] && [ "$(ls -A $MODEL_DIR)" ]; then
+    echo "Model directory already exists and is not empty. Skipping download."
+else
+    download_model
+fi
+
+# Check if vectorizer directory exists and is not empty
+if [ -d "$VECTORIZER_DIR" ] && [ "$(ls -A $VECTORIZER_DIR)" ]; then
+    echo "Vectorizer directory already exists and is not empty. Skipping download."
+else
+    download_vectorizer
+fi
+
+#Stress predictions
 export PREDICTIONS_STREAM_NAME="stress_predictions"
 #Set environment variables and build image
 if [ "${LOCAL_IMAGE_NAME}" == "" ]; then

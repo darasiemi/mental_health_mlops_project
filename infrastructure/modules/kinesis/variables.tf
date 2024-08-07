@@ -29,5 +29,5 @@ variable "shard_level_metrics" {
 
 variable "tags" {
   description = "Tags for kinesis stream"
-    default = "mlops-zoomcamp"
+    default = "mental-health-project"
 }

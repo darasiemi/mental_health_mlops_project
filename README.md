@@ -1,4 +1,4 @@
-# Mental Health Project: Stress Prediction Using Multimodal Input
+# Mental Health Project: Stress Prediction Using Social Media Posts
 Introduction
 This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github.com/DataTalksClub/mlops-zoomcamp). In this project, I have implemented the end-to-end machine learning life cycle, including infrastructure provisioning using Terraform, modeling and experiment tracking using MLflow, orchestration with Mage, deployment using Flask, Lambda and Kinesis, monitoring with Evidently and Grafana, and best practices such as integration tests with localstark, unit testing, formatting, Makefile, pre-commit hooks etc.
 
@@ -16,14 +16,24 @@ This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github
 - [General Guidelines](#best-practices)
 - [Future Works](#future-works)
 - [Setup](#setup)
+- [Acknowledgement](#acknowledgement)
 - [References](#references)
 
 ### Problem Statement
 The World Health Organization defines mental health as a state of well-being that allows individuals to handle life’s stresses, realise their potential, learn effectively, work productively, and contribute to their community. This definition highlights stress as a potential trigger that must be managed. In contrast, the National Alliance on Mental Illness defines mental illness as conditions that impact a person's emotions, behaviour, thoughts, and mood, leading to a negative effect on their daily functioning[1]. Mental illnesses affect more than 1 billion people globally, with significant economic consequences [2]. Stress is recognized as one of the contributing factors to mental illness, underscoring the need for technological tools for longitudinal monitoring and care for managing stress and mental illnesses.
 
-This project aims to predict stress using a multimodal input of social media posts (text) combined with numerical tabular data. The project utilises data available on Kaggle. Traditional machine learning models and handcrafted features using a feature vectorizer have been explored. Due to the challenge of high dimensionality from numerous tabular features, mutual information (MI) was used to select the top 5 features based on MI. The choice of five features is arbitrary and intended for experimental purposes.
+This project aims to predict stress using social media posts (text) combined with numerical tabular data. The project utilises data available on Kaggle. Traditional machine learning models and handcrafted features using a feature vectorizer have been explored. Due to the challenge of high dimensionality from numerous tabular features, mutual information (MI) was used to select the top 5 features based on MI. The choice of five features is arbitrary and intended for experimental purposes.
 
 ### Data
+The dataset is publicly available online on [Kaggle](https://www.kaggle.com/datasets/ruchi798/stress-analysis-in-social-media). The dataset information, as analysed on Mage are as thus:
+
+![Dataset summary](images/mage_summary_overview.jpeg)
+
+The final selected features which were used to train the model and make inference are:
+|      Text         | lex_liwc_Tone  |   lex_liwc_i   |lex_liwc_negemo | lex_liwc_Clout | Sentiment|
+|-------------------|----------------|----------------|----------------|----------------|----------|
+| Social media posts|    float       |     float      |      float     |     float      |  float   |
+
 
 ### Experiment tracking
 
@@ -54,6 +64,8 @@ This project aims to predict stress using a multimodal input of social media pos
 - Optimizing code to facilitate lower cloud costs.
 
 ### Setup
+
+### Acknowledgement
 
 ### References
 

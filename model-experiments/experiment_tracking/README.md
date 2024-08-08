@@ -11,6 +11,6 @@ To install packages
 pip install -r requirements.txt
 ```
 
-To launch tracking server
+To launch tracking server, connect to the EC2 configured to run mlflow and run
 ```bash
 mlflow server -h 0.0.0.0 -p 5000 --backend-store-uri postgresql://postgres:9QqTxeByefYq50DlZP8U@mlflow-database.cfka4w20im4d.eu-north-1.rds.amazonaws.com:5432/mlflow_db --default-artifact-root s3://mlflows-artifacts-remote```

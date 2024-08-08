@@ -14,11 +14,11 @@ To set Python path for the folder as a variable
 export PYTHONPATH=$PYTHONPATH:~/mental_health_mlops_project
 ```
 
-To run linting using pylint, first launch pipenv
+To run linting using pylint, first launch pipenv from the parent directory
 ```bash
 pipenv shell
 ```
-Then we rub pylint on particular folders (monitoring and deployment)
+Then we rub pylint on particular directories (monitoring and deployment)
 ```bash
 pylint --recursive=y monitoring deployment
 ```

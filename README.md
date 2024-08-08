@@ -25,7 +25,7 @@ The World Health Organization defines mental health as a state of well-being tha
 This project aims to predict stress using social media posts (text) combined with numerical tabular data. The project utilises data available on Kaggle. Traditional machine learning models and handcrafted features using a feature vectorizer have been explored. Due to the challenge of high dimensionality from numerous tabular features, mutual information (MI) was used to select the top 5 features based on MI. The choice of five features is arbitrary and intended for experimental purposes.
 
 ### Data
-The dataset is publicly available online on [Kaggle](https://www.kaggle.com/datasets/ruchi798/stress-analysis-in-social-media). The dataset information, as analysed on Mage are as thus:
+The dataset is publicly available online on [Kaggle](https://www.kaggle.com/datasets/ruchi798/stress-analysis-in-social-media). The training dataset information, as analysed on Mage is as thus:
 
 ![Dataset summary](images/mage_summary_overview.jpeg)
 
@@ -34,8 +34,14 @@ The final selected features which were used to train the model and make inferenc
 |-------------------|----------------|----------------|----------------|----------------|----------|
 | Social media posts|    float       |     float      |      float     |     float      |  float   |
 
-
 ### Experiment tracking
+I explored using an EC2 instance as a tracking server for MLflow. This is to model a situation whereby there are different machine learning professionals in a company, who can easily view experiements run on Mlflow through the tracking server's public IP address. The model artificacts were also stored and can be retrieved from S3.
+
+The notebooks used for experiment tracking can be found in `model-experiments/experiment_tracking`. There are two notebooks namely `stress_prediction_mlflow.ipynb` and `stress_prediction_hyperparameter.ipynb`. The former was used to explore different models and the Random Forest(RF) was shown to have the best performance. I also explored the use of stacked features (text and numerical data), and only text data, and I discovered that my model performed better using the stacked features. The stacked features and RF were then used for hyperparameter tuning, to get the best parameters. The model and vectorizer artifacts were then logged for the best performing model. Note that hyperopt was used for the hyperparameter tuning. Since this minimizes a loss, and the accuracy is intended to maximise, a negative accuracy was returned as the objective to be minimized.
+
+Please not that for the experiment tracking, this was done outside orchestration. However, using Mage, I was able to load my model performance from MLflow. The plot of the model performances can be found as follows
+
+![Model performance](images/mage_model_performance_plot.jpeg)
 
 ### Orchestration
 
@@ -50,6 +56,7 @@ The final selected features which were used to train the model and make inferenc
 ### General Guidelines
 - After spinning up a docker container, you can run `docker ps` to check information about running containers
 - You can work with conda environment for development, but it's easier to use `pip environment` for containerization. If you want to maintain the environment using conda, you will need a `requirements.txt` file to pip install in your Dockerfile.
+- Please note that the tracking server changes from time to time based on the current running public IP address of the EC2 instance.
 
 ### Future Works
 - Creation of alerts and triggers for retraining in orchestration
@@ -64,6 +71,8 @@ The final selected features which were used to train the model and make inferenc
 - Optimizing code to facilitate lower cloud costs.
 
 ### Setup
+To run the model experiments, follow the instructions for model training [here](model-experiments/training/README.md)
+Intructions on how to set up environment for experiment tracking can be found [here](model-experiments/experiment_tracking/README.md)
 
 ### Acknowledgement
 

@@ -121,6 +121,10 @@ To follow best practices
  - [x] Makefile to automate building and managing dependencies
  - [x] pre-commit hooks
 
+Some of the outputs are:
+![pre-commit](images/pre-commit-output.jpeg)
+![unit tests](images/unit-tests.jpeg)
+
 ### General Guidelines
 - After spinning up a docker container, you can run `docker ps` to check information about running containers
 - You can work with conda environment for development, but it's easier to use `pip environment` for containerization. If you want to maintain the environment using conda, you will need a `requirements.txt` file to pip install in your Dockerfile.

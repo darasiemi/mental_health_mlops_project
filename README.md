@@ -121,7 +121,7 @@ To follow best practices
  - [x] Makefile to automate building and managing dependencies
  - [x] pre-commit hooks
 
-Some of the outputs are:
+Outputs from the pre-commit hook is shown below:
 ![pre-commit](images/pre-commit-output.jpeg)
 The unit tests checks for the base64 encoding, features, predict function, lambda function. These could be tested from the command line, or visible on VS code as shown belown.
 ![unit tests](images/unit-tests.jpeg)
@@ -129,6 +129,11 @@ The unit tests checks for the base64 encoding, features, predict function, lambd
 ### General Guidelines
 - After spinning up a docker container, you can run `docker ps` to check information about running containers
 - You can work with conda environment for development, but it's easier to use `pip environment` for containerization. If you want to maintain the environment using conda, you will need a `requirements.txt` file to pip install in your Dockerfile.
+- Please note that due to time constraint, as at the time of submitting this project for review, the orchesration folder was excluded from the pre-commit hook manually by resetting the git cache of the orchestration folder.
+This can be done by
+```bash
+git reset orchestration
+```
 - Please note that the tracking server changes from time to time based on the current running public IP address of the EC2 instance.
 
 ### Future Works

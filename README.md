@@ -59,8 +59,9 @@ I created Global Data Product (GDP) in Mage to use results from my data preparat
 The modeling pipeline also has a transformer block for hyperparameter tuning, and a data exporter block to build the model and return the model and vectorizer (from text data). As seen from the image, I had an extra “check” block which was used for debugging my utility scripts.
 
 <!-- ![Mental Health pipeline](images/mage_mental_health_pipeline.jpeg) -->
-
-<img src="images/mage_mental_health_pipeline.jpeg" alt="Mental Health pipeline" width="300"/>
+<div align="center">
+  <img src="images/mage_mental_health_pipeline.jpeg" alt="Mental Health pipeline" style="width: 500px; height: 500px;"/>
+</div>
 
 ### Deployment
 

@@ -11,7 +11,6 @@ This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github
 - [Data](#data)
 - [Deployment](#deployment)
 - [Monitoring](#monitoring)
-- [infrastructure](#Infrastructure)
 - [Best Practices](#best-practices)
 - [General Guidelines](#best-practices)
 - [Future Works](#future-works)
@@ -67,6 +66,8 @@ The modeling pipeline also has a transformer block for hyperparameter tuning, an
   <img src="images/mage_mental_health_pipeline.jpeg" alt="Mental Health pipeline" style="width: 500px; height: 500px;"/>
 </div>
 
+Note that although experimentation and hyperparameter tuning weere done on Mage, these were not logged into Mlflow. Nevertheless, the already logged models were loaded in Mage and visualized.
+
 ### Deployment
 
 For model deployment, I explored all the deployment modes covered in the course, including batch and online deployment (which encompasses both web service and streaming deployment).
@@ -112,9 +113,13 @@ To ensure a robust monitoring process, I explored the concept of batch backfilli
 
 In summary, my approach to monitoring in this MLOps project involved a combination of Evidently for generating and visualizing detailed metrics, and Grafana for creating insightful time series plots. This comprehensive monitoring setup ensures that the model remains reliable and performs well even as the data evolves, providing a solid foundation for maintaining high-quality machine learning models in production.
 
-### Infrastructure
-
 ### Best Practices
+To follow best practices
+ - [x] Unit tests using Pytest
+ - [x] Integration test using Localstark
+ - [x] Linter and code formatter using pylint, isort and black
+ - [x] Makefile to automate building and managing dependencies
+ - [x] pre-commit hooks
 
 ### General Guidelines
 - After spinning up a docker container, you can run `docker ps` to check information about running containers
@@ -129,15 +134,37 @@ In summary, my approach to monitoring in this MLOps project involved a combinati
 - Setting up alerts from Grafana for automatic retraining.
 - Poetry for managing dependencies
 - Making utils to load data from S3 instead of having to download it locally from S3 first before loading.
-- CI/CD
-- Interconnection of all modules. The methodology of going from week 1 module to week 6, caused that there were some modules that were sort of disconnect (e.g orchestration)
+- Implement CI/CD pipelines to enable frequent, reliable, and automated delivery of code changes
+- Interconnection of all modules. My methodology of going from week 1 module to week 6, caused that there were some modules that were sort of disconnected (e.g there was no experiment logging during orchestration as this was previously done)
 - Optimizing code to facilitate lower cloud costs.
 
 ### Setup
-To run the model experiments, follow the instructions for model training [here](model-experiments/training/README.md)
-Intructions on how to set up environment for experiment tracking can be found [here](model-experiments/experiment_tracking/README.md)
+To set Python path for the folder as a variable
+```bash
+export PYTHONPATH=$PYTHONPATH:~/mental_health_mlops_project
+```
+
+To setup the infrastructure using Terraform, follow the instructions here: [infrastructure](infrastructure/README.md). Note that you will need terraform in your environment and also configure your AWS credentials. The S3 bucket used to store the model artifacts are created independent of IaC because we do not want this bucket destroyed when we destroy other infrastructure created by Terraform. It might be helpful to provision the resources last, when you are ready for deployment.
+
+After provisioning, 17 resources will be created as shown below
+
+![terraform](images/terraform_creation.jpeg)
+
+To run the model experiments, follow the instructions for model training [training](model-experiments/training/README.md)
+
+Intructions on how to set up environment for experiment tracking can be found [experiment tracking](model-experiments/experiment_tracking/README.md)
+
+Orchestration instructions can be found here: [orchestration](orchestration/README.md)
+For instructions on reimplementing the deployment aspect of this project, go here: [deployment](deployment/README.md)
+
+Monitoring instructions can be found here: [monitoring](monitoring/README.md).
+
+To implement the unit tests and integration tests, check [tests](tests/README.md)
+
+Other setup instructions such as connecting to EC2, setting up linter and formater, makefile etc, check here: [other setup instructions](setup.md)
 
 ### Acknowledgement
+I would like to appreciate the Data Talks Club team for putting together a very valuable introduction to MLOps. This got me started and I am very excited about everything I have learnt. I would also like to appreciate the dataset contributors for making their dataset public. Finally, I would like to appreciate Kaggle contributors on this project, which provided a template to get me started considering my time constraint. I was able to improve on this but including a stacked combination of the social media posts and the tabular features.
 
 ### References
 

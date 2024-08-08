@@ -50,7 +50,11 @@ Please not that for the experiment tracking, this was done outside orchestration
 ### Orchestration
 I created two pipelines: one for data preparation and another for the modeling. Each pipeline had blocks of data loaders, transformers and data exporters. Specifically, for the data preparation pipeline, I had a data loader block to ingest the data. Then I had a transformer block to transform the data(preprocess text data and standardize the numerical features). Splitting the data into training and validation set was also done in the transformer block. Thereafter, there was a data exporter block to prepare the features.
 
-![Data preparation](images/mage_data_preparation_pipeline.jpeg)
+<!-- ![Data preparation](images/mage_data_preparation_pipeline.jpeg) -->
+<div align="center">
+  <img src="images/mage_data_preparation_pipeline.jpeg" alt="Data preparation" style="width: 500px; height: 500px;"/>
+</div>
+
 
 The data exporter block also had some unit tests to test for the shape of the features to ensure feature size consistency between training and validation data. I created utility Python scripts for preprocessing, splitting data, feature transformation and encoding features.
 

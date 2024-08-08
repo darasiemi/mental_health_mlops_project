@@ -5,10 +5,6 @@ This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github
 
 ## Table of Contents
 - [Problem Statement](#problem-statement)
-The World Health Organization defines mental health as a state of well-being that allows individuals to handle life’s stresses, realise their potential, learn effectively, work productively, and contribute to their community. This definition highlights stress as a potential trigger that must be managed. In contrast, the National Alliance on Mental Illness defines mental illness as conditions that impact a person's emotions, behaviour, thoughts, and mood, leading to a negative effect on their daily functioning[1]. Mental illnesses affect more than 1 billion people globally, with significant economic consequences [2]. Stress is recognized as one of the contributing factors to mental illness, underscoring the need for technological tools for longitudinal monitoring and care for managing stress and mental illnesses.
-
-This project aims to predict stress using a multimodal input of social media posts (text) combined with numerical tabular data. The project utilises data available on Kaggle. Traditional machine learning models and handcrafted features using a feature vectorizer have been explored. Due to the challenge of high dimensionality from numerous tabular features, mutual information (MI) was used to select the top 5 features based on MI. The choice of five features is arbitrary and intended for experimental purposes.
-
 - [Data](#data)
 - [Experiment Tracking](#experiment-tracking)
 - [Orchestration](#orchestration)
@@ -23,6 +19,9 @@ This project aims to predict stress using a multimodal input of social media pos
 - [References](#references)
 
 ### Problem Statement
+The World Health Organization defines mental health as a state of well-being that allows individuals to handle life’s stresses, realise their potential, learn effectively, work productively, and contribute to their community. This definition highlights stress as a potential trigger that must be managed. In contrast, the National Alliance on Mental Illness defines mental illness as conditions that impact a person's emotions, behaviour, thoughts, and mood, leading to a negative effect on their daily functioning[1]. Mental illnesses affect more than 1 billion people globally, with significant economic consequences [2]. Stress is recognized as one of the contributing factors to mental illness, underscoring the need for technological tools for longitudinal monitoring and care for managing stress and mental illnesses.
+
+This project aims to predict stress using a multimodal input of social media posts (text) combined with numerical tabular data. The project utilises data available on Kaggle. Traditional machine learning models and handcrafted features using a feature vectorizer have been explored. Due to the challenge of high dimensionality from numerous tabular features, mutual information (MI) was used to select the top 5 features based on MI. The choice of five features is arbitrary and intended for experimental purposes.
 
 ### Data
 

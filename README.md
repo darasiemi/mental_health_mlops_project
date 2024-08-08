@@ -99,6 +99,8 @@ To make these insights actionable, I logged these variables into a database usin
 
 ![Grafana](images/monitoring_grafana.jpeg)
 
+Note that an hypothetical date was selected. As at when the image for the adminer was taken, the start time selected was 7/2024 which was the month and date the plots were created. However, since this logs data into the future and Grafana could not see data in the future, the start date was later changed to 01/2024, so as to be able to view the plots in Grafana.
+
 To ensure a robust monitoring process, I explored the concept of batch backfilling, which involves retrospectively logging metrics for previous time periods. Hypothetically, I logged these metrics on a daily basis, which would allow for continuous monitoring in a production environment. This approach ensures that any issues with the model can be identified and addressed promptly, minimizing the risk of model degradation.
 
 In summary, my approach to monitoring in this MLOps project involved a combination of Evidently for generating and visualizing detailed metrics, and Grafana for creating insightful time series plots. This comprehensive monitoring setup ensures that the model remains reliable and performs well even as the data evolves, providing a solid foundation for maintaining high-quality machine learning models in production.

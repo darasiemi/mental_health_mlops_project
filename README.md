@@ -30,7 +30,7 @@ Please note that all setup instructions can be found in the `SETUP section`
 The dataset is publicly available online on [Kaggle](https://www.kaggle.com/datasets/ruchi798/stress-analysis-in-social-media). The training dataset information, as analysed on Mage and a table of the selected features are presented below:
 
 <div align="center">
-  <img src="images/mage_summary_overview.jpeg" alt="Dataset summary" style="width: 300px; height: 300px;"/>
+  <img src="images/mage_summary_overview.jpeg" alt="Dataset summary" style="width: 500px; height: 300px;"/>
 </div>
 <!-- ![Dataset summary](images/mage_summary_overview.jpeg) -->
 

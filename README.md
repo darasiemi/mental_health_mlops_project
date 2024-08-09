@@ -1,6 +1,6 @@
 # Mental Health Project: Stress Prediction Using Multimodal Inputs
-Introduction
-This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github.com/DataTalksClub/mlops-zoomcamp). In this project, I have implemented the end-to-end machine learning life cycle, including infrastructure provisioning using Terraform, modeling and experiment tracking using MLflow, orchestration with Mage, deployment using Flask, Lambda and Kinesis, monitoring with Evidently and Grafana, and best practices such as integration tests with localstark, unit testing, formatting, Makefile, pre-commit hooks etc.
+## Introduction
+This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github.com/DataTalksClub/mlops-zoomcamp). In this project, I have implemented the end-to-end machine learning life cycle, including infrastructure provisioning using Terraform, modeling and experiment tracking using MLflow, orchestration with Mage, deployment using Flask, Lambda and Kinesis, monitoring with Evidently and Grafana, and best practices such as integration tests with Localstark, unit testing, linting and formatting, Makefile and pre-commit hooks.
 
 ![System Design](images/mental_health_mlops_project.drawio.svg)
 
@@ -20,11 +20,13 @@ This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github
 - [References](#references)
 
 ### Problem Statement
-The World Health Organization defines mental health as a state of well-being that allows individuals to handle life’s stresses, realise their potential, learn effectively, work productively, and contribute to their community. This definition highlights stress as a potential trigger that must be managed. In contrast, the National Alliance on Mental Illness defines mental illness as conditions that impact a person's emotions, behaviour, thoughts, and mood, leading to a negative effect on their daily functioning[1]. Mental illnesses affect more than 1 billion people globally, with significant economic consequences [2]. Stress is recognized as one of the contributing factors to mental illness[3], underscoring the need for technological tools for longitudinal monitoring and care for managing stress and mental illnesses.
+The World Health Organization (WHO) defines mental health as a state of well-being that allows individuals to effectively manage the stresses of life, fulfill their potential, learn efficiently, work productively, and contribute meaningfully to their communities. This definition highlights the critical role that stress management plays in maintaining mental health. When stress becomes unmanageable, it can act as a significant trigger for mental health issues, leading to a range of emotional and psychological difficulties. In contrast to the WHO definition, the National Alliance on Mental Illness (NAMI) describes mental illness as a set of conditions that profoundly impact a person's emotions, behavior, thoughts, and mood, resulting in disruptions to their daily functioning [1]. The effects of mental illnesses are far-reaching, affecting over 1 billion people globally and leading to substantial economic consequences[2]. Among the various factors contributing to mental illness, stress was recognized as a key element [3], highlighting the urgent need for technological tools that enable continuous monitoring and care to detect stress and prevent mental health issues.
 
-This project aims to predict stress using social media posts (text) combined with numerical tabular data. The project utilises data available on Kaggle. Traditional machine learning models and handcrafted features using a feature vectorizer have been explored. Due to the challenge of high dimensionality from numerous tabular features, mutual information (MI) was used to select the top 5 features based on MI. The choice of five features is arbitrary and intended for experimental purposes.
+In today's digital age, the integration of technology into mental health care is becoming increasingly important. One emerging area of interest is the use of social media as a data source for predicting and monitoring mental health conditions. Social media platforms, where users frequently express their thoughts, emotions, and experiences, offer a wealth of information that can be harnessed for mental health monitoring. This project aims to leverage this data by predicting stress levels based on a combination of social media posts (text) and numerical data from linguistic analysis. The data for this project is sourced from publicly available datasets on Kaggle. By applying traditional machine learning models and crafting features with a feature vectorizer, this project explores how effectively these methods can predict stress. Given the high dimensionality of the tabular data, mutual information (MI) was used to identify the top five numerical features with the highest MI values. These features were selected to optimize the model's performance while balancing computational efficiency.
 
-Please note that all setup instructions can be found in the `SETUP section`
+Moreover, the project not only focuses on the technical aspects of stress prediction but also considers the broader implications for mental health monitoring. By accurately predicting stress levels using a multimodal approach—combining textual and numerical data—this project contributes to the growing field of digital mental health. The use of mutual information for feature selection exemplifies the careful consideration given to feature relevance and model performance. The project's exploration of both the challenges and opportunities presented by high-dimensional data reflects a commitment to advancing our understanding of how technology can be used to support mental well-being. As mental health continues to be a global priority, projects like this demonstrate the potential for innovative solutions that integrate machine learning, data science, and mental health care to address the complex challenges of stress and mental illness in today's world.
+
+Please note that all setup instructions can be found in the [Setup](#setup) section.
 
 ### Data
 The dataset is publicly available online on [Kaggle](https://www.kaggle.com/datasets/ruchi798/stress-analysis-in-social-media). The training dataset information, as analysed on Mage and a table of the selected features are presented below:
@@ -41,21 +43,20 @@ The final selected features which were used to train the model and make inferenc
 |-------------------|----------------|----------------|----------------|----------------|----------|
 | Social media posts|    float       |     float      |      float     |     float      |  float   |
 
-The lables in the dataset are 1: stressed and 0:unstressed. As shown below, the dataset is slight imbalance. However, this is very minimal with about 51-49% distribution between stressed and unstressed labels.
+The lables in the dataset are 1: stressed and 0:unstressed. As shown below, the dataset is slightly imbalance. However, this is very minimal with about 51-49% distribution between stressed and unstressed labels.
 
 ![Most frequent values](images/mage_most_frequent_values.jpeg)
 
 ### Experiment tracking
-I explored using an EC2 instance as a tracking server for MLflow. This is to model a situation whereby there are different machine learning professionals in a company, who can easily view experiements run on Mlflow through the tracking server's public IP address. The model artificacts were also stored and can be retrieved from S3.
+I explored using an EC2 instance as a tracking server for MLflow. This is to model a situation whereby there are different machine learning professionals in a company, who can easily view experiements run on MLflow through the tracking server's public IP address. The model artificacts were also stored and can be retrieved from S3.
 
-The notebooks used for experiment tracking can be found in `model-experiments/experiment_tracking`. There are two notebooks namely `stress_prediction_mlflow.ipynb` and `stress_prediction_hyperparameter.ipynb`. The former was used to explore different models and the Random Forest(RF) was shown to have the best performance. I also explored the use of stacked features (text and numerical data), and only text data, and I discovered that my model performed better using the stacked features (denoted as combined in the plot below). The stacked features and RF were then used for hyperparameter tuning, to get the best parameters. The model and vectorizer artifacts were then logged for the best performing model. Note that hyperopt was used for the hyperparameter tuning. Since this minimizes a loss, and the accuracy is intended to maximise, a negative accuracy was returned as the objective to be minimized.
+The notebooks used for experiment tracking can be found in [model-experiments](model-experiments/experiment_tracking) directory. There are two notebooks namely `stress_prediction_mlflow.ipynb` and `stress_prediction_hyperparameter.ipynb`. The former was used to explore different models and the Random Forest(RF) was shown to have the best performance. I also explored the use of stacked features (text and numerical data), and only text data, and it was discovered that the RF model performed better using the stacked features (denoted as combined in the plot below). The stacked features and RF were then used for hyperparameter tuning, to get the best parameters. The model and vectorizer artifacts were then logged for the best performing model. Note that hyperopt was used for the hyperparameter tuning. Since this minimizes a loss, and we intend to maximise the accuracy, a negative accuracy was returned as the objective to be minimized.
 
 The best performing model was then saved in the model registry. Although this was done programmitically, it can also be done in the MLflow UI.
 
-Please not that for the experiment tracking, this was done outside orchestration. However, using Mage, I was able to load my model performance from MLflow. The plot of the model performances can be found as follows
+Please not that for the experiment tracking, this was done outside orchestration. However, using Mage, I was able to load my model performance from MLflow. The plot of the model performances can be found as follows.
 
 ![Model performance](images/mage_model_performance_plot.jpeg)
-
 
 
 ### Orchestration
@@ -69,7 +70,7 @@ I created two pipelines: one for data preparation and another for the modeling. 
 
 The data exporter block also had some unit tests to test for the shape of the features to ensure feature size consistency between training and validation data. I created utility Python scripts for preprocessing, splitting data, feature transformation and encoding features.
 
-I created Global Data Product (GDP) in Mage to use results from my data preparation pipeline in my modeling pipeline. This avoids redundancy of having to compute the results again. The results of the build data exporter(in data preparation pipeline) was used in this regard.
+Global Data Product (GDP) was created in Mage to use results from my data preparation pipeline in my modeling pipeline. This avoids redundancy of having to compute the results again everytime the pipeline runs. The results of the build data exporter(in data preparation pipeline) was used in this regard.
 
 The modeling pipeline also has a transformer block for hyperparameter tuning, and a data exporter block to build the model and return the model and vectorizer (from text data). As seen from the image, I had an extra “check” block which was used for debugging my utility scripts.
 
@@ -97,19 +98,24 @@ For environment management, I chose pipenv, which provided a reliable way to man
 Overall, I thoroughly enjoyed experimenting with these tools and gained a deep appreciation for the complexities and possibilities of deploying machine learning models in real-world environments.
 
 ### Monitoring
-During the machine learning lifecycle, it is common for machine learning models to degrade over time due to phenomena such as data drift or concept drift. Data drift occurs when the statistical properties of the input data change, while concept drift refers to changes in the underlying relationship between the input data and the target variable. These issues can lead to a decline in model performance, making it essential to continuously monitor both the models and the data they process during inference. I’m excited to share the monitoring aspect of my MLOps project, where I implemented a comprehensive approach to address these challenges.
+During the machine learning lifecycle, it is common for machine learning models to degrade over time due to phenomena such as data drift or concept drift. Data drift occurs when the statistical properties of the input data change, while concept drift refers to changes in the underlying relationship between the input data and the target variable. These issues can lead to a decline in model performance, making it essential to continuously monitor both the models and the data they process during inference.
 
 To monitor my machine learning models effectively, I leveraged Evidently, a powerful open-source tool designed specifically for monitoring and analyzing machine learning models. Evidently allowed me to track the performance of my models over time and detect any signs of drift or anomalies in the data.
 
 In my project, I utilized the validation data used during the model evaluation phase as the reference data. This reference dataset served as a benchmark against which I compared the data encountered during inference (the test data). By using the test data as the current data, I was able to monitor the model’s performance on real-world inputs, ensuring that any deviations from the reference were promptly identified.
 
-Given that my project involves multimodal inputs, including both social media posts (text data) and numerical tabular data, I ensured that my monitoring approach was comprehensive. I included both numerical and text features in my column mapping, which allowed Evidently to analyze a wide range of metrics related to data quality and model performance. Specifically, I generated reports on various metrics such as column and data drift, missing values, and text drift. These reports provided valuable insights into how well the model was adapting to new data and highlighted any potential issues that could impact its performance.
+Given that my project involves multimodal inputs, including both social media posts (text data) and numerical data, I ensured that my monitoring approach was comprehensive. I included both numerical and text features in my column mapping, which allowed Evidently to analyze a wide range of metrics related to data quality and model performance. Specifically, I generated reports on various metrics such as column and data drift, missing values, and text drift. These reports provided valuable insights into how well the model was adapting to new data and highlighted any potential issues that could impact its performance.
+
 
 ![Text monitoring](images/monitoring_text_drift_column.jpeg)
 
 To visualize and explore these metrics, I created an interactive dashboard using the Evidently UI. This dashboard allowed me to monitor the model’s behavior in real-time, providing a clear and intuitive way to track key performance indicators. Additionally, I used Evidently’s test suite to debug the data, ensuring that the model was making accurate predictions and identifying any potential sources of error. An image of the dashboard is shown below, where you can see the detailed metrics and insights that were captured.
 
 ![Label information](images/monitoring_label_information.jpeg)
+
+Data debugging using test suite:
+
+![Debugging](images/monitoring_test_suite.jpeg)
 
 But monitoring doesn’t stop at visualizations. To take my monitoring approach a step further, I extracted key variables such as prediction drift (i.e., the drift between predictions made during inference and those made during validation), the number of drifted columns, and out-of-vocabulary drift scores, among others. These metrics were crucial for understanding how the model’s predictions were evolving over time and identifying any factors that could lead to a decline in accuracy.
 
@@ -131,7 +137,7 @@ To follow best practices
  - [x] Integration test using Localstark
  - [x] Linter and code formatter using pylint, isort and black
  - [x] Makefile to automate building and managing dependencies
- - [x] pre-commit hooks
+ - [x] pre-commit hooks to enforce code quality standards and prevent bad code from being committed
 
 Outputs from the pre-commit hook is shown below:
 ![pre-commit](images/pre-commit-output.jpeg)
@@ -161,6 +167,7 @@ git reset orchestration
 - Implement CI/CD pipelines to enable frequent, reliable, and automated delivery of code changes
 - Interconnection of all modules. My methodology of going from week 1 module to week 6, caused that there were some modules that were sort of disconnected (e.g there was no experiment logging during orchestration as this was previously done)
 - Optimizing code to facilitate lower cloud costs.
+- Streaming data from social media platforms directly and using Big Data tools such as Apache Kafka.
 
 ### Setup
 To set Python path for the folder as a variable

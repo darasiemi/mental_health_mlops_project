@@ -201,7 +201,11 @@ To implement the unit tests and integration tests, check [tests](tests/README.md
 Other setup instructions such as connecting to EC2, setting up linter and formater, makefile etc, check here: [other setup instructions](setup.md)
 
 ### Acknowledgement
-I would like to appreciate the Data Talks Club team for putting together a very valuable introduction to MLOps. This got me started and I am very excited about everything I have learnt. I would also like to appreciate the dataset contributors for making their dataset publicly available. Finally, I would like to appreciate Kaggle contributors on this project, which provided a insights to get me started considering my time constraint. I was able to improve on this by exploring feature selection using mutual information and including a stacked combination of the social media posts and the numerical features for stress prediction.
+I would like to appreciate the Data Talks Club team for putting together a very valuable introduction to MLOps. This got me started and I am very excited about everything I have learnt and using my skills in offering machine learning services in the industry.
+
+I would also like to appreciate the dataset contributors for making their dataset publicly available. I would also like to appreciate Kaggle contributors that have previously worked on this project, providing insights to get me started, especially considering my time constraint. I was able to improve on this by exploring feature selection using mutual information and including a stacked combination of the social media posts and the numerical features for stress prediction.
+
+Finally, I would like to appreciate all the participants of the 2024 MLOps Zoomcamp cohort. Thank you for your unwavering support, guidance, and encouragement which kept me going in spite of the numerous bugs and challenges I faced.
 
 ### References
 

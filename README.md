@@ -34,10 +34,14 @@ The dataset is publicly available online on [Kaggle](https://www.kaggle.com/data
 </div>
 <!-- ![Dataset summary](images/mage_summary_overview.jpeg) -->
 
+The training dataset has 2838 rows. The test dataset (which is not shown here), has 715 rows. Both datasets have 116 columns, however only 6 columns in total were selected (i.e. the text column and 5 numerical features)
+
 The final selected features which were used to train the model and make inference are:
 |      Text         | lex_liwc_Tone  |   lex_liwc_i   |lex_liwc_negemo | lex_liwc_Clout | Sentiment|
 |-------------------|----------------|----------------|----------------|----------------|----------|
 | Social media posts|    float       |     float      |      float     |     float      |  float   |
+
+The lables in the dataset are 1: stressed and 0:unstressed. As shown below, the dataset is slight imbalance. However, this is very minimal with about 51-49% distribution between stressed and unstressed labels.
 
 ![Most frequent values](images/mage_most_frequent_values.jpeg)
 

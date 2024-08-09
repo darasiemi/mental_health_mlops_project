@@ -2,6 +2,8 @@
 Introduction
 This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github.com/DataTalksClub/mlops-zoomcamp). In this project, I have implemented the end-to-end machine learning life cycle, including infrastructure provisioning using Terraform, modeling and experiment tracking using MLflow, orchestration with Mage, deployment using Flask, Lambda and Kinesis, monitoring with Evidently and Grafana, and best practices such as integration tests with localstark, unit testing, formatting, Makefile, pre-commit hooks etc.
 
+![System Design](images/mental_health_mlops_project.drawio.svg)
+
 
 ## Table of Contents
 - [Problem Statement](#problem-statement)

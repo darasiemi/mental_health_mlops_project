@@ -10,11 +10,10 @@ This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github
 - [Data](#data)
 - [Experiment Tracking](#experiment-tracking)
 - [Orchestration](#orchestration)
-- [Data](#data)
 - [Deployment](#deployment)
 - [Monitoring](#monitoring)
 - [Best Practices](#best-practices)
-- [General Guidelines](#best-practices)
+- [General Guidelines](#general-guidelines)
 - [Future Works](#future-works)
 - [Setup](#setup)
 - [Acknowledgement](#acknowledgement)
@@ -30,7 +29,10 @@ Please note that all setup instructions can be found in the `SETUP section`
 ### Data
 The dataset is publicly available online on [Kaggle](https://www.kaggle.com/datasets/ruchi798/stress-analysis-in-social-media). The training dataset information, as analysed on Mage and a table of the selected features are presented below:
 
-![Dataset summary](images/mage_summary_overview.jpeg)
+<div align="center">
+  <img src="images/mage_summary_overview.jpe" alt="Dataset summary" style="width: 300px; height: 300px;"/>
+</div>
+<!-- ![Dataset summary](images/mage_summary_overview.jpeg) -->
 
 The final selected features which were used to train the model and make inference are:
 |      Text         | lex_liwc_Tone  |   lex_liwc_i   |lex_liwc_negemo | lex_liwc_Clout | Sentiment|
@@ -44,9 +46,13 @@ I explored using an EC2 instance as a tracking server for MLflow. This is to mod
 
 The notebooks used for experiment tracking can be found in `model-experiments/experiment_tracking`. There are two notebooks namely `stress_prediction_mlflow.ipynb` and `stress_prediction_hyperparameter.ipynb`. The former was used to explore different models and the Random Forest(RF) was shown to have the best performance. I also explored the use of stacked features (text and numerical data), and only text data, and I discovered that my model performed better using the stacked features (denoted as combined in the plot below). The stacked features and RF were then used for hyperparameter tuning, to get the best parameters. The model and vectorizer artifacts were then logged for the best performing model. Note that hyperopt was used for the hyperparameter tuning. Since this minimizes a loss, and the accuracy is intended to maximise, a negative accuracy was returned as the objective to be minimized.
 
+The best performing model was then saved in the model registry. Although this was done programmitically, it can also be done in the MLflow UI.
+
 Please not that for the experiment tracking, this was done outside orchestration. However, using Mage, I was able to load my model performance from MLflow. The plot of the model performances can be found as follows
 
 ![Model performance](images/mage_model_performance_plot.jpeg)
+
+
 
 ### Orchestration
 I created two pipelines: one for data preparation and another for the modeling. Each pipeline had blocks of data loaders, transformers and data exporters. Specifically, for the data preparation pipeline, I had a data loader block to ingest the data. Then I had a transformer block to transform the data(preprocess text data and standardize the numerical features). Splitting the data into training and validation set was also done in the transformer block. Thereafter, there was a data exporter block to prepare the features.
@@ -137,6 +143,8 @@ This can be done by
 git reset orchestration
 ```
 - Please note that the tracking server changes from time to time based on the current running public IP address of the EC2 instance.
+- In Mage, a new block cannot be created when another block is running
+- To debug the charts in Mage, you might need to create a block that runs your custom code.
 
 ### Future Works
 - Creation of alerts and triggers for retraining in orchestration

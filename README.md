@@ -64,7 +64,7 @@ I created two pipelines: one for data preparation and another for the modeling. 
 
 <!-- ![Data preparation](images/mage_data_preparation_pipeline.jpeg) -->
 <div align="center">
-  <img src="images/mage_data_preparation_pipeline.jpeg" alt="Data preparation" style="width: 500px; height: 500px;"/>
+  <img src="images/mage_data_preparation_pipeline.jpeg" alt="Data preparation" style="width: 300px; height: 300px;"/>
 </div>
 
 

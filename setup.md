@@ -83,3 +83,8 @@ aws kinesis put-record \
 This returns a shard-id if run successfully.
 
 You can now check CloudWatch on AWS to confirm that the Lambda function was triggered and runs successfully.
+
+To move files(a folder) from your local machine to the remote host, run
+```bash
+scp -r /localhost/path ubuntu@IP_address:remotehost/path
+```

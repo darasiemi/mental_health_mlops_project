@@ -125,24 +125,30 @@ To make these insights actionable, I logged these variables into a database usin
 
 ![Grafana](images/monitoring_grafana.jpeg)
 
-Note that an hypothetical date was selected. As at when the image for the adminer was taken, the start time selected was 7/2024 which was the month and date the plots were created. However, since this logs data into the future and Grafana could not see data in the future, the start date was later changed to 01/2024, so as to be able to view the plots in Grafana.
+Please note that a hypothetical date was chosen for the setup. When the image for Adminer was captured, the initial start time selected was July 2024, which corresponded to the month and date when the plots were generated. However, since this setup logs data into the future and Grafana was unable to display future data, the start date was later adjusted to January 2024 to ensure that the plots could be viewed in Grafana. This is the reason for the discrepancies in date between the two images.
 
-To ensure a robust monitoring process, I explored the concept of batch backfilling, which involves retrospectively logging metrics for previous time periods. Hypothetically, I logged these metrics on a daily basis, which would allow for continuous monitoring in a production environment. This approach ensures that any issues with the model can be identified and addressed promptly, minimizing the risk of model degradation.
+It should also be noted that I explored batch backfilling for model logs, which involves retrospectively logging metrics for previous time periods. Hypothetically, I logged these metrics on a daily basis, which would allow for continuous monitoring in a production environment. This approach ensures that any issues with the model can be identified and addressed promptly, minimizing the risk of model degradation.
 
 In summary, my approach to monitoring in this MLOps project involved a combination of Evidently for generating and visualizing detailed metrics, and Grafana for creating insightful time series plots. This comprehensive monitoring setup ensures that the model remains reliable and performs well even as the data evolves, providing a solid foundation for maintaining high-quality machine learning models in production.
 
 ### Best Practices
-To follow best practices
- - [x] Unit tests using Pytest
- - [x] Integration test using Localstark
- - [x] Linter and code formatter using pylint, isort and black
- - [x] Makefile to automate building and managing dependencies
- - [x] pre-commit hooks to enforce code quality standards and prevent bad code from being committed
+To follow MLOps best practices, I implemented the following:
+ - [x] Unit tests using Pytest.
+ - [x] Integration test using Localstark.
+ - [x] Linter and code formatter using pylint, isort and black.
+ - [x] Makefile to automate building and managing dependencies.
+ - [x] pre-commit hooks to enforce code quality standards and prevent bad code from being committed.
 
 Outputs from the pre-commit hook is shown below:
-![pre-commit](images/pre-commit-output.jpeg)
-The unit tests checks for the base64 encoding, features, predict function, lambda function. These could be tested from the command line, or visible on VS code as shown belown.
-![unit tests](images/unit-tests.jpeg)
+<!-- ![pre-commit](images/pre-commit-output.jpeg) -->
+<div align="center">
+  <img src="images/pre-commit-output.jpeg" alt="pre-commit" style="width: 200px; height: 200px;"/>
+</div>
+The unit tests checks for the base64 encoding, features, predict function, lambda function. These could be tested from the command line, but also visible in VS code (my code editor) as shown belown.
+<!-- ![unit tests](images/unit-tests.jpeg) -->
+<div align="center">
+  <img src="images/unit-tests.jpeg" alt="unit tests" style="width: 200px; height: 200px;"/>
+</div>
 
 ### General Guidelines
 - After spinning up a docker container, you can run `docker ps` to check information about running containers
@@ -154,23 +160,23 @@ git reset orchestration
 ```
 - Please note that the tracking server changes from time to time based on the current running public IP address of the EC2 instance.
 - In Mage, a new block cannot be created when another block is running
-- To debug the charts in Mage, you might need to create a block that runs your custom code.
+- To debug the charts in Mage, you might need to create a block that runs your custom code. The "check" block in my mental health pipeline was created for this reason.
 
 ### Future Works
-- Creation of alerts and triggers for retraining in orchestration
-- Logging of models with orchestration pipeline
-- Store and load the data from S3
-- Incorporation of the utils function into the deployment Python modules. However, this were left in this implementation to show different methods of loading the model and vectorizer artifacts (i.e. directly from S3 like in deployment scripts, and locally (already downloaded from S3) as in the `utils/model_loader.py`)
+- Creation of alerts and triggers for retraining in orchestration.
+- Logging of models to MLflow with orchestration pipeline.
+- Store and load the data from S3.
+- Incorporation of the utils function into the deployment Python modules. However, this were left in this implementation to show different methods of loading the model and vectorizer artifacts i.e. directly from S3 like in deployment scripts, and locally (after retrieval from S3) as in the [model_loader.py](utils/model_loader.py).
 - Setting up alerts from Grafana for automatic retraining.
 - Poetry for managing dependencies
-- Making utils to load data from S3 instead of having to download it locally from S3 first before loading.
-- Implement CI/CD pipelines to enable frequent, reliable, and automated delivery of code changes
-- Interconnection of all modules. My methodology of going from week 1 module to week 6, caused that there were some modules that were sort of disconnected (e.g there was no experiment logging during orchestration as this was previously done)
+- Making utils to load data from S3 instead of having to download it locally from S3 first before loading. Nevertheless, the [run.sh](tests/integration-tests/run.sh) scripts retrieves the data from S3 and downloads locally.
 - Optimizing code to facilitate lower cloud costs.
 - Streaming data from social media platforms directly and using Big Data tools such as Apache Kafka.
+- Implement CI/CD pipelines to enable frequent, reliable, and automated delivery of code changes
+- More synergy between all components. My methodology of going from week 1 module to week 6, caused that there were some modules that were sort of disconnected e.g there was no experiment logging to MLflow during orchestration as this was previously done in a previous step and would be redundant.
 
 ### Setup
-To set Python path for the folder as a variable
+After cloning the directory, the first thing to do is to set Python path for the folder as a variable. This makes it possible to use the folder as a Python module.
 ```bash
 export PYTHONPATH=$PYTHONPATH:~/mental_health_mlops_project
 ```
@@ -195,7 +201,7 @@ To implement the unit tests and integration tests, check [tests](tests/README.md
 Other setup instructions such as connecting to EC2, setting up linter and formater, makefile etc, check here: [other setup instructions](setup.md)
 
 ### Acknowledgement
-I would like to appreciate the Data Talks Club team for putting together a very valuable introduction to MLOps. This got me started and I am very excited about everything I have learnt. I would also like to appreciate the dataset contributors for making their dataset public. Finally, I would like to appreciate Kaggle contributors on this project, which provided a template to get me started considering my time constraint. I was able to improve on this but including a stacked combination of the social media posts and the tabular features.
+I would like to appreciate the Data Talks Club team for putting together a very valuable introduction to MLOps. This got me started and I am very excited about everything I have learnt. I would also like to appreciate the dataset contributors for making their dataset publicly available. Finally, I would like to appreciate Kaggle contributors on this project, which provided a insights to get me started considering my time constraint. I was able to improve on this by exploring feature selection using mutual information and including a stacked combination of the social media posts and the numerical features for stress prediction.
 
 ### References
 

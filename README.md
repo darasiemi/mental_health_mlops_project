@@ -142,7 +142,7 @@ To follow MLOps best practices, I implemented the following:
 Outputs from the pre-commit hook is shown below:
 <!-- ![pre-commit](images/pre-commit-output.jpeg) -->
 <div align="center">
-  <img src="images/pre-commit-output.jpeg" alt="pre-commit" style="width: 200px; height: 200px;"/>
+  <img src="images/pre-commit-output.jpeg" alt="pre-commit" style="width: 400px; height: 200px;"/>
 </div>
 The unit tests checks for the base64 encoding, features, predict function, lambda function. These could be tested from the command line, but also visible in VS code (my code editor) as shown belown.
 <!-- ![unit tests](images/unit-tests.jpeg) -->

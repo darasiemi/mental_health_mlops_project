@@ -1,6 +1,14 @@
-To connect with remote host, edit the config and add the IP address of the EC2 instance
+To connect with remote host
 ```bash
 nano ~/.ssh/config
+```
+Then edit the config and add the IP address of the  EC2 instance. Ensure the key of the instance is in the given directory
+```
+Host mlopszoomcamp
+     HostName 13.60.226.229
+     User ubuntu
+     IdentityFile /Users/oluwadaraadedeji/.ssh/mlopszoomcamp.pem
+     StrictHostKeyChecking no
 ```
 Then run this to sign in
 ```bash

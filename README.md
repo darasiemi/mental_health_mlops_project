@@ -166,7 +166,7 @@ git reset orchestration
 - Creation of alerts and triggers for retraining in orchestration.
 - Logging of models to MLflow with orchestration pipeline.
 - Store and load the data from S3.
-- Incorporation of the utils function into the deployment Python modules. However, this were left in this implementation to show different methods of loading the model and vectorizer artifacts i.e. directly from S3 like in deployment scripts, and locally (after retrieval from S3) as in the [model_loader.py](utils/model_loader.py).
+- Incorporation of the utils function into the deployment Python modules. However, these were left in this implementation to show different methods of loading the model and vectorizer artifacts i.e. directly from S3 like in deployment scripts, and locally (after retrieval from S3) as in the [model_loader.py](utils/model_loader.py).
 - Setting up alerts from Grafana for automatic retraining.
 - Poetry for managing dependencies
 - Making utils to load data from S3 instead of having to download it locally from S3 first before loading. Nevertheless, the [run.sh](tests/integration-tests/run.sh) scripts retrieves the data from S3 and downloads locally.
@@ -187,11 +187,12 @@ After provisioning, 17 resources will be created as shown below
 
 ![terraform](images/terraform_creation.jpeg)
 
-To run the model experiments, follow the instructions for model training [training](model-experiments/training/README.md)
+To run the model experiments, follow the instructions for model training [training](model-experiments/training/README.md).
 
 Intructions on how to set up environment for experiment tracking can be found [experiment tracking](model-experiments/experiment_tracking/README.md)
 
-Orchestration instructions can be found here: [orchestration](orchestration/README.md)
+Orchestration instructions can be found here: [orchestration](orchestration/README.md).
+
 For instructions on reimplementing the deployment aspect of this project, go here: [deployment](deployment/README.md)
 
 Monitoring instructions can be found here: [monitoring](monitoring/README.md).

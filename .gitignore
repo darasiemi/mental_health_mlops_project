@@ -1,5 +1,7 @@
 model/experiment_tracking/models/*
 model/experiment_tracking/vectorizer/*
+model-experiments/training/kaggle.json
+model-experiments/training/data
 kaggle.json
 orchestration/mlops/kaggle.json
 orchestration/mlops/*.db

@@ -209,7 +209,7 @@ I would also like to appreciate the dataset contributors for making their datase
 
 Finally, I would like to appreciate all the participants of the 2024 MLOps Zoomcamp cohort. Thank you for your unwavering support, guidance, and encouragement which kept me going in spite of the numerous bugs and challenges I faced.
 
-UPDATE 2025: Note that this project was just for educational purposes. Some steps should be updated to replicate this in industrial setting (e.g. scaling of numerical features should be done after splitting the data). In hindsight, this was a mistake which I have since learnt from. It's worthy to note that, the main focus of the project was to deploy and monitor ML models.
+UPDATE 2025: This repo began as a learning project. A few steps weren’t production-grade—most notably, I scaled numerical features before the train/validation/test split, which risks data leakage. I’ve since fixed this and learnt from it.
 
 ### References
 

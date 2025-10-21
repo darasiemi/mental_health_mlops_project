@@ -2,7 +2,6 @@
 ## Introduction
 This is a final project for the Data Talks Club MLOps [Zoomcamp ](https://github.com/DataTalksClub/mlops-zoomcamp). In this project, I have implemented the end-to-end machine learning life cycle, including infrastructure provisioning using Terraform, modeling and experiment tracking using MLflow, orchestration with Mage, deployment using Flask, Lambda and Kinesis, monitoring with Evidently and Grafana, and best practices such as integration tests with Localstark, unit testing, linting and formatting, Makefile and pre-commit hooks.
 
-UPDATE 2025: Note that this project was just for educational purposes. Some steps should be updated to replicate this in industrial setting (e.g. scaling of numerical features should be done after splitting the data). In hindsight, this was a mistake which I have since learnt from. It's worthy to note that, the main focus of the project was to deploy and monitor ML models.
 
 ![System Design](images/mental_health_mlops_project.drawio.svg)
 
@@ -209,6 +208,8 @@ I would like to appreciate the Data Talks Club team for putting together a very 
 I would also like to appreciate the dataset contributors for making their dataset publicly available. I would also like to appreciate Kaggle contributors that have previously worked on this project, providing insights to get me started, especially considering my time constraint. I was able to improve on this by exploring feature selection using mutual information and including a stacked combination of the social media posts and the numerical features for stress prediction.
 
 Finally, I would like to appreciate all the participants of the 2024 MLOps Zoomcamp cohort. Thank you for your unwavering support, guidance, and encouragement which kept me going in spite of the numerous bugs and challenges I faced.
+
+UPDATE 2025: Note that this project was just for educational purposes. Some steps should be updated to replicate this in industrial setting (e.g. scaling of numerical features should be done after splitting the data). In hindsight, this was a mistake which I have since learnt from. It's worthy to note that, the main focus of the project was to deploy and monitor ML models.
 
 ### References
 
